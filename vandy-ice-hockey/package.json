@@ -9,8 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "13.5.2",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react": "latest",
+    "react-dom": "latest",
+    "next": "latest"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "@types/react": "latest",
+    "@types/node": "latest",
+    "@types/react-dom": "latest"
   }
 }
