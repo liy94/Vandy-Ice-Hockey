@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import styles from "../page.module.css";
+import useRegistrationForm from "./useRegistrationForm";
 
 export default function RegistrationForm() {
   return (
@@ -13,16 +13,9 @@ export default function RegistrationForm() {
 }
 
 function Form() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [car, setCar] = useState("No");
-  const [seats, setSeats] = useState(0);
-
-  const submitHandler = (e: any) => {
-    e.preventDefault();
-    console.log("form submitted");
-  };
+  const { 
+    name, setName, email, setEmail, phone, setPhone, car, setCar, seats, setSeats, submitHandler
+  } = useRegistrationForm();
 
   return (
     <form className={styles.registration} onSubmit={submitHandler}>
