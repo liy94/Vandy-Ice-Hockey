@@ -7,6 +7,38 @@
   min-height: 100vh;
 }
 
+.registration {
+  text-align: center;
+}
+
+.formLabel {
+  text-align: left;
+  display: block;
+  margin: 10px 0;
+}
+
+.formInput {
+  width: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  display: block;
+}
+
+.radioLabel {
+  padding-left: 5px;
+}
+
+.submitButton {
+  background: #2b91cc;
+  color: #fff;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 0;
+}
+
 .description {
   display: inherit;
   justify-content: inherit;
@@ -97,7 +129,7 @@
 
 .center::before,
 .center::after {
-  content: '';
+  content: "";
   left: 50%;
   position: absolute;
   filter: blur(45px);
