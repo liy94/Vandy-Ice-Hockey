@@ -1,0 +1,53 @@
+/* styles.css */
+
+/* Header Styles */
+.header {
+  background-color: #333;
+  color: #cfae73;
+  text-align: center;
+  padding: 1rem;
+  display: flex; /* Center header content vertically */
+  align-items: center; /* Center header content vertically */
+}
+
+.header h1 {
+  padding-bottom: 60px; /* Adjust the value to control the spacing */
+}
+
+/* Container Styles */
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: calc(100vh - 50px); /* Subtract header height */
+}
+
+/* Left Half Styles */
+.left-half {
+  flex: 1;
+  padding: 1rem;
+  background-color: #f0f0f0;
+  overflow: auto; /* Enable scrolling if content overflows */
+}
+
+.left-half h2 {
+  padding-bottom: 20px; /* Adjust the value to control the spacing */
+}
+
+.left-half li {
+  margin-bottom: 20px; /* Adjust the value to control the spacing */
+}
+
+/* Right Half Styles */
+.right-half {
+  flex: 1;
+  padding: 1rem;
+  background-color: #ffffff;
+}
+
+/* Google Maps Container Styles */
+.map-container {
+  height: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
