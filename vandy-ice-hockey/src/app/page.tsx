@@ -2,13 +2,14 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import Link from "next/link";
 
-export default function Home() {
+export default function Login() {
   return (
     <main className={styles.main}>
       <div className={styles.title}>
         <h2>Vanderbilt Ice Hockey Carpool</h2>
       </div>
 
+      {/* todo if first time logging in direct to registration form, else go to home page */}
       <Link
         href="/registrationForm"
         className={styles.card}
