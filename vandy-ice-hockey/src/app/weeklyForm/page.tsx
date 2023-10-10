@@ -3,7 +3,7 @@
 import { useState } from "react";
 import styles from "../page.module.css";
 
-export default function RegistrationForm() {
+export default function WeeklyForm() {
   return (
     <main className={styles.main}>
       <h1>Weekly Form</h1>
