@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import "./driver.css"; // Import the CSS file with the styles
+import Link from "next/link";
 
 const App: React.FC = () => {
+  //todo get information from database and fill in values here
   const users = [
     {
       name: "User 1",
@@ -19,26 +21,42 @@ const App: React.FC = () => {
       name: "User 3",
       phone: "222-222-2222",
       email: "ex@gmail.com",
-    }]
+    },
+  ];
 
-    const location = "<LOCATION>";
+  const location = "<LOCATION>";
 
   return (
     <div className="app">
-      <header className="header">
+      <div className="header">
         <h1>Hello, USER</h1>
-        
-      </header>
+        <div className="links">
+          <Link
+            href="/registrationForm"
+            className="card"
+            target="_self"
+            rel="noopener noreferrer"
+          >
+            Edit Form
+          </Link>
+        </div>
+      </div>
       <div className="container">
         <div className="left-half">
           {/* User information content */}
-          <h2> Here is a list of you will be picking up tonight at {location}</h2>
+          <h2>
+            {" "}
+            Here is a list of you will be picking up tonight at {location}
+          </h2>
           <ul>
             {users.map((user, index) => (
               <li key={index}>
-                <strong>Name:</strong> {user.name}<br />
-                <strong>Phone:</strong> {user.phone}<br/>
-                <strong>Email:</strong> {user.email}<br />
+                <strong>Name:</strong> {user.name}
+                <br />
+                <strong>Phone:</strong> {user.phone}
+                <br />
+                <strong>Email:</strong> {user.email}
+                <br />
               </li>
             ))}
           </ul>

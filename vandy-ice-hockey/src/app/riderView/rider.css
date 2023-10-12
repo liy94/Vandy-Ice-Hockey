@@ -3,15 +3,46 @@
 /* Header Styles */
 .header {
   background-color: #333;
-  color: #cfae73;
-  text-align: center;
   padding: 1rem;
   display: flex; /* Center header content vertically */
   align-items: center; /* Center header content vertically */
+  margin: 0 auto;
 }
 
 .header h1 {
-  padding-bottom: 60px; /* Adjust the value to control the spacing */
+  color: #cfae73;
+}
+
+.header .links {
+  margin-left: auto;
+}
+
+.card {
+  margin-left: 16px;
+  padding: 10px;
+  cursor: pointer;
+  font-size: medium;
+  border-radius: var(--border-radius);
+  background: rgba(var(--card-rgb), 1);
+  border: 1px solid rgba(var(--card-rgb), 1);
+  transition: background 200ms, border 200ms;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    background: rgba(var(--light-card-rgb), 1);
+    border: 1px solid rgba(var(--card-border-rgb), 0.15);
+  }
+
+  .card:hover span {
+    transform: translateX(4px);
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .card:hover span {
+    transform: none;
+  }
 }
 
 /* Container Styles */
