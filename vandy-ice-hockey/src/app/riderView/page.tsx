@@ -3,9 +3,27 @@
 import { useState } from "react";
 import "./rider.css"; // Import the CSS file with the styles
 import Link from "next/link";
+import images from '../imageLoader';
+import Image from 'next/image';
+
+
 
 const App: React.FC = () => {
-  const location = "<LOCATION>";
+  const location = "zeppos"; // Get this from the backend
+
+  // Define the selected image based on the location
+  let selectedImage;
+  if (location === "kissam") {
+    selectedImage = images.kissam;
+  } else if (location === "commons") {
+    selectedImage = images.commons;
+  }else if(location == "ebi"){
+    selectedImage = images.ebi;
+  }else if(location == "highland"){
+    selectedImage = images.highland;
+  } else if (location == "zeppos"){
+    selectedImage = images.zeppos;
+  }
 
   return (
     <div className="app">
@@ -32,7 +50,9 @@ const App: React.FC = () => {
           <div className="map-container">
             {/* Add Google Maps API component here */}
             {/* Replace this with your Google Maps component */}
-            <p>Google Maps API Placeholder</p>
+            <h3>{location}</h3>
+
+            <Image src={selectedImage} alt={`not found: ${location}`} width={500} height={500} />
           </div>
         </div>
       </div>
