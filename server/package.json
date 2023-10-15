@@ -2,16 +2,9 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-<<<<<<< HEAD
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-=======
-  "main": "./server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node server.js"
->>>>>>> 6f52f6252d0ee163834c2363545b22ea3224dec2
   },
   "keywords": [],
   "author": "",
@@ -19,14 +12,7 @@
   "dependencies": {
     "body-parser": "^1.20.2",
     "express": "^4.18.2",
-<<<<<<< HEAD
     "mongodb": "^6.1.0",
     "mysql": "^2.18.1"
   }
-=======
-    "mysql": "^2.18.1",
-    "sequelize": "^6.11.0"
-  },
-  "type": "module"
->>>>>>> 6f52f6252d0ee163834c2363545b22ea3224dec2
 }
