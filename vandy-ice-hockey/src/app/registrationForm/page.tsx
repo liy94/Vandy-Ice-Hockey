@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import styles from "../page.module.css";
+import { useRouter } from "next/navigation";
 
 export default function RegistrationForm() {
   return (
@@ -13,6 +14,11 @@ export default function RegistrationForm() {
 }
 
 function Form() {
+  const router = useRouter();
+
+  //Todo try to fetch their data from the database, if they've filled out the form before
+  //fill in with their existing values
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -23,6 +29,11 @@ function Form() {
   const submitHandler = (e: any) => {
     e.preventDefault();
     console.log("form submitted");
+    if (car === "Yes") {
+      router.push("/driverView");
+    } else {
+      router.push("/riderView");
+    }
   };
 
   return (
@@ -60,12 +71,12 @@ function Form() {
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           >
-            <option value="commons">Commons</option>
-            <option value="ebi">EBI</option>
-            <option value="highland">Highland</option>
-            <option value="kissam">Kissam</option>
-            <option value="roth">Roth</option>
-            <option value="zeppos">Zeppos</option>
+            <option value="Commons">Commons</option>
+            <option value="EBI">EBI</option>
+            <option value="Highland">Highland</option>
+            <option value="Kissam">Kissam</option>
+            <option value="Roth">Roth</option>
+            <option value="Zeppos">Zeppos</option>
           </select>
         </label>
       </div>

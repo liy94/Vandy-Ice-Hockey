@@ -9,14 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "next": "latest",
+    "next-images": "^1.8.5",
     "react": "latest",
     "react-dom": "latest",
-    "next": "latest"
+    "react-router-dom": "^6.16.0"
   },
   "devDependencies": {
-    "typescript": "latest",
-    "@types/react": "latest",
     "@types/node": "latest",
-    "@types/react-dom": "latest"
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "typescript": "latest"
   }
 }
