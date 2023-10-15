@@ -40,7 +40,7 @@ app.put('/users/:id', async (req, res) => {
         const userId = new ObjectId(req.params.id);
         const updatedUser = await collection.findOneAndUpdate({ _id: userId }, { $set: req.body });
         if (!updatedUser) return res.status(404).send('User not found');
-        res.status(200).json({ message: "Document updated successfully", data: updatedDocument });
+        res.status(200).json({ message: "Document updated successfully", data: updatedUser });
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
