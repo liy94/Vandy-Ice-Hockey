@@ -1,92 +1,70 @@
 const express = require('express');
-const mysql = require('mysql');
 const bodyParser = require('body-parser');
+const MongoClient = require('mongodb').MongoClient;
+const { ObjectId } = require('mongodb');
+const uri = "mongodb+srv://PrinciplesSWE:VandyIceHockey@danielblog.te9b5na.mongodb.net/?retryWrites=true&w=majority";
 
 const app = express();
+const PORT = 3000;
 
 app.use(bodyParser.json());
 
-// MySQL database connection configuration
-const db = mysql.createConnection({
-    host: 'ec2-3-131-157-19.us-east-2.compute.amazonaws.com',
-    user: 'admin',
-    password: 'VandyIceHockey',
-    database: 'vandy_ride_share', // Replace with your actual database name if different
-    port: 3306
-});
+let client;
+let collection;
 
-
-// Connect to MySQL
-db.connect((err) => {
-    if (err) throw err;
-    console.log('Connected to the database.');
-});
-
-// Test endpoint to fetch all data from a table named 'your_table_name'
-app.get('/data', (req, res) => {
-    const sql = 'SELECT * FROM User'; // Replace 'your_table_name' with your actual table name
-
-    db.query(sql, (err, results) => {
-        if (err) throw err;
-        res.json(results);
+MongoClient.connect(uri)
+    .then(_client => {
+        client = _client;
+        console.log('Connected to MongoDB successfully.');
+        const database = client.db("VandyIceHockey");
+        collection = database.collection("Users");
+    })
+    .catch(err => {
+        console.error("Failed to connect to MongoDB:", err);
     });
+
+app.get('/users/:id', async (req, res) => {
+    try {
+        const userId = new ObjectId(req.params.id); // Convert string to ObjectId
+        const user = await collection.findOne({ _id: userId });
+        if (!user) return res.status(404).send('User not found');
+        res.send(user);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
-// Endpoint to fetch user details by user id
-app.get('/user/:id', (req, res) => {
-    const userId = req.params.id;
-    const sql = 'SELECT * FROM User WHERE id = ?';
-
-    db.query(sql, [userId], (err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
-
-        if (results.length == 0) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        res.json(results[0]);
-    });
+app.put('/users/:id', async (req, res) => {
+    try {
+        const userId = new ObjectId(req.params.id);
+        const updatedUser = await collection.findOneAndUpdate({ _id: userId }, { $set: req.body });
+        if (!updatedUser) return res.status(404).send('User not found');
+        res.status(200).json({ message: "Document updated successfully", data: updatedDocument });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
-// Endpoint to update user details
-app.put('/user/:id', (req, res) => {
-    const userId = req.params.id;
-
-    const {
-        name,
-        mobile_number,
-        address_id,
-        email,
-        has_car,
-        car_capacity,
-        car_build
-    } = req.body;
-
-    const sql = `
-        UPDATE User SET 
-            name = ?, 
-            mobile_number = ?, 
-            address_id = ?, 
-            email = ?, 
-            has_car = ?, 
-            car_capacity = ?, 
-            car_build = ?
-        WHERE id = ?
-    `;
-
-    db.query(sql, [name, mobile_number, address_id, email, has_car, car_capacity, car_build, userId], (err, results) => {
-        if (err) return res.status(500).json({ error: err.message });
-
-        if (results.affectedRows == 0) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        res.json({ message: 'User updated successfully!' });
-    });
+app.post('/users', async (req, res) => {
+    try {
+        // Assuming auto-increment functionality for id is handled by your MongoDB setup.
+        const newUser = await collection.insertOne(req.body);
+        res.status(201).send(newUser.ops[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
-
-const PORT = 3000;
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running at http://localhost:${PORT}`);
+});
+
+process.on('SIGINT', () => {
+    if (client) {
+        client.close();
+    }
+    process.exit();
 });
