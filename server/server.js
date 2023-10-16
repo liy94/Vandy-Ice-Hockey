@@ -23,6 +23,13 @@ MongoClient.connect(uri)
         console.error("Failed to connect to MongoDB:", err);
     });
 
+// GET /users/:id
+// This endpoint retrieves a user from the Users collection by ID.
+// @params id: The ID of the user to retrieve.
+// Response:
+// 200 OK: The user data in JSON format.
+// 404 Not Found: If the user with the specified ID does not exist.
+// 500 Internal Server Error: If an error occurs while retrieving the user.
 app.get('/users/:id', async (req, res) => {
     try {
         const userId = new ObjectId(req.params.id); // Convert string to ObjectId
@@ -35,6 +42,16 @@ app.get('/users/:id', async (req, res) => {
     }
 });
 
+// PUT /users/:id
+// This endpoint updates a user in the Users collection by ID.
+// @params id: The ID of the user to update.
+// Request Body:
+// name: The updated name of the user.
+// email: The updated email address of the user.
+// Response:
+// 200 OK: The updated user data in JSON format.
+// 404 Not Found: If the user with the specified ID does not exist.
+// 500 Internal Server Error: If an error occurs while updating the user.
 app.put('/users/:id', async (req, res) => {
     try {
         const userId = new ObjectId(req.params.id);
@@ -47,9 +64,16 @@ app.put('/users/:id', async (req, res) => {
     }
 });
 
+// POST /users
+// This endpoint creates a new user in the Users collection.
+// Request Body:
+// name: The name of the user.
+// email: The email address of the user.
+// Response:
+// 201 Created: The newly created user data in JSON format.
+// 500 Internal Server Error: If an error occurs while creating the user.
 app.post('/users', async (req, res) => {
     try {
-        // Assuming auto-increment functionality for id is handled by your MongoDB setup.
         const newUser = await collection.insertOne(req.body);
         res.status(201).send(newUser.ops[0]);
     } catch (err) {
