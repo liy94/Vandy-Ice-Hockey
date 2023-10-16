@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import Link from "next/link"; // Import Link from Next.js
 import "./response.css";
+import { useRouter } from "next/navigation";
 
 const ResponsesPage: React.FC = () => {
   const respondents = [
@@ -10,17 +13,14 @@ const ResponsesPage: React.FC = () => {
     // Add more respondents as needed
   ];
 
+  const router = useRouter();
+
   return (
     <div className="responses-page">
       <div className="top-bar">
-      <Link
-            href="/homePage"
-            className="home-button"
-            target="_self"
-            rel="noopener noreferrer"
-          >
-            Home 
-          </Link>
+        <button className="home-button" onClick={() => router.back()}>
+          Home
+        </button>
       </div>
       <h1>Responses to the Poll</h1>
       <ul className="response-list">
