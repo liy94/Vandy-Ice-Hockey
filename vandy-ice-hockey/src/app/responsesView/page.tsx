@@ -1,4 +1,4 @@
-"use client";
+"use client"; // This statement appears to be unrelated to the code and can be removed
 
 import React from "react";
 import Link from "next/link"; // Import Link from Next.js
@@ -10,10 +10,10 @@ const ResponsesPage: React.FC = () => {
     { name: "User 1", response: "Option A" },
     { name: "User 2", response: "Option B" },
     { name: "User 3", response: "Option C" },
-    // Add more respondents as needed
+    // WIll pull from the backend 
   ];
 
-  const router = useRouter();
+  const router = useRouter(); // Access the router for navigation
 
   return (
     <div className="responses-page">

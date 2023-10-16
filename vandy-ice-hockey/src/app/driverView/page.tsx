@@ -1,4 +1,4 @@
-"use client";
+"use client"; 
 
 import { useState } from "react";
 import "./driver.css"; // Import the CSS file with the styles
@@ -6,11 +6,9 @@ import Link from "next/link";
 import images from '../imageLoader';
 import Image from 'next/image';
 
-
-
-
+// Define a React functional component named App
 const App: React.FC = () => {
-  //todo get information from database and fill in values here
+  // Define user information (will fetch from database)
   const users = [
     {
       name: "User 1",
@@ -45,12 +43,13 @@ const App: React.FC = () => {
     selectedImage = images.zeppos;
   }
 
-
   return (
     <div className="app">
       <div className="header">
         <h1>Hello, USER</h1>
         <div className="links">
+
+          {/* link to edit response form */}
           <Link
             href="/registrationForm"
             className="card"
@@ -59,6 +58,8 @@ const App: React.FC = () => {
           >
             Edit Form
           </Link>
+
+          {/* link to view all responses form */}
           <Link
             href="/responsesView"
             className="card"
@@ -92,10 +93,9 @@ const App: React.FC = () => {
         <div className="right-half">
           {/* Google Maps API */}
           <div className="map-container">
-
             <h3>{location}</h3>
-            <a href={`https://www.google.com/maps?q=${encodeURIComponent(location + " Nashville, TN")}`} target="_blank">
-
+          {/* link to google maps website with the correct location inputted  */}
+          <a href={`https://www.google.com/maps?q=${encodeURIComponent(location + " Nashville, TN")}`} target="_blank">
               <Image src={selectedImage} alt={`not found: ${location}`} width={500} height={500} />
             </a>
           </div>
