@@ -37,11 +37,11 @@ const App: React.FC = () => {
     selectedImage = images.kissam;
   } else if (location === "commons") {
     selectedImage = images.commons;
-  }else if(location == "ebi"){
+  } else if (location == "ebi") {
     selectedImage = images.ebi;
-  }else if(location == "highland"){
+  } else if (location == "highland") {
     selectedImage = images.highland;
-  } else if (location == "zeppos"){
+  } else if (location == "zeppos") {
     selectedImage = images.zeppos;
   }
 
@@ -65,7 +65,7 @@ const App: React.FC = () => {
             target="_self"
             rel="noopener noreferrer"
           >
-            All Responses 
+            All Responses
           </Link>
         </div>
       </div>
@@ -92,10 +92,12 @@ const App: React.FC = () => {
         <div className="right-half">
           {/* Google Maps API */}
           <div className="map-container">
-            
-          <h3>{location}</h3>
-            <Image src={selectedImage} alt={`not found: ${location}`} width={500} height={500} />
 
+            <h3>{location}</h3>
+            <a href={`https://www.google.com/maps?q=${encodeURIComponent(location + " Nashville, TN")}`} target="_blank">
+
+              <Image src={selectedImage} alt={`not found: ${location}`} width={500} height={500} />
+            </a>
           </div>
         </div>
       </div>

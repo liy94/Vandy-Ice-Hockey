@@ -68,8 +68,11 @@ const App: React.FC = () => {
         <div className="right-half">
           <div className="map-container">
             <h3>{location}</h3>
+            <a href={`https://www.google.com/maps?q=${encodeURIComponent(location +" nashville tn")}`} target="_blank">
 
             <Image src={selectedImage} alt={`not found: ${location}`} width={500} height={500} />
+            </a>
+
           </div>
         </div>
       </div>
