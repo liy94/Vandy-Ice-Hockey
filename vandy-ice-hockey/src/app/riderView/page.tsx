@@ -9,6 +9,14 @@ import Image from 'next/image';
 
 
 const App: React.FC = () => {
+
+  const driver = [
+    {
+      name: "Driver ex 1",
+      phone: "111-111-1111",
+      email: "ex@gmail.com",
+    }
+  ];
   const location = "zeppos"; // Get this from the backend
 
   // Define the selected image based on the location
@@ -38,18 +46,27 @@ const App: React.FC = () => {
           >
             Edit Form
           </Link>
+          <Link
+            href="/responsesView"
+            className="card"
+            target="_self"
+            rel="noopener noreferrer"
+          >
+            All Responses 
+          </Link>
         </div>
       </div>
       <div className="container">
         <div className="left-half">
           {/* User information content */}
           <h2> Here is your pick up information at {location}</h2>
+          <h3>Look for {driver[0].name}</h3>
+          <p>Your driver is {driver[0].name} and you can contact them at {driver[0].phone}</p>
+
+
         </div>
         <div className="right-half">
-          {/* Google Maps API */}
           <div className="map-container">
-            {/* Add Google Maps API component here */}
-            {/* Replace this with your Google Maps component */}
             <h3>{location}</h3>
 
             <Image src={selectedImage} alt={`not found: ${location}`} width={500} height={500} />

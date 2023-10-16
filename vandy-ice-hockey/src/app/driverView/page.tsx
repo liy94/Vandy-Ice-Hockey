@@ -59,6 +59,14 @@ const App: React.FC = () => {
           >
             Edit Form
           </Link>
+          <Link
+            href="/responsesView"
+            className="card"
+            target="_self"
+            rel="noopener noreferrer"
+          >
+            All Responses 
+          </Link>
         </div>
       </div>
       <div className="container">
@@ -86,7 +94,6 @@ const App: React.FC = () => {
           <div className="map-container">
             
           <h3>{location}</h3>
-            {/* <img src='./img/rand.png' alt={`not found: ${selectedImg}`} width={500} height={500} /> */}
             <Image src={selectedImage} alt={`not found: ${location}`} width={500} height={500} />
 
           </div>
