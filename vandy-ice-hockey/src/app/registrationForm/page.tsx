@@ -3,6 +3,7 @@
 import { useState } from "react";
 import styles from "../page.module.css";
 import { useRouter } from "next/navigation";
+import { createUser, updateUser } from '../../utils/formUtils';
 
 export default function RegistrationForm() {
   return (
@@ -28,6 +29,7 @@ function Form() {
 
   const submitHandler = (e: any) => {
     e.preventDefault();
+    createUser(name, email, phone, location, car==="Yes", seats);
     console.log("form submitted");
     if (car === "Yes") {
       router.push("/driverView");

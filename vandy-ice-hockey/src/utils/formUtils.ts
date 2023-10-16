@@ -1,8 +1,12 @@
 // functions for making requests to the backend
 
+// server url
+const serverUrl = 'http://localhost:3001';
+
 // should check whether the user exists in the future
-async function createUser(name: string, email: string, mobile_number: string, pickup_location: string, has_car: boolean = false, car_capacity: number = 0): Promise<void> {
-  const response = await fetch('http://localhost:3000/users', {
+export async function createUser(name: string, email: string, mobile_number: string, pickup_location: string, has_car: boolean = false, car_capacity: number = 0): Promise<void> {
+  console.log('here')
+  const response = await fetch(`${serverUrl}/users`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -24,8 +28,8 @@ async function createUser(name: string, email: string, mobile_number: string, pi
 
 // update user with given id
 // right now, hard coded to a valid user id. In the future, will implement authentication and get the id from there
-async function updateUser(id: string = "652c26e88bab84882a3e8ef1", name: string, email: string, mobile_number: string, pickup_location: string, has_car: boolean = false, car_capacity: number = 0): Promise<void> {
-  const response = await fetch(`http://localhost:3000/users/${id}`, {
+export async function updateUser(id: string = "652c26e88bab84882a3e8ef1", name: string, email: string, mobile_number: string, pickup_location: string, has_car: boolean = false, car_capacity: number = 0): Promise<void> {
+  const response = await fetch(`${serverUrl}/users/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -47,8 +51,8 @@ async function updateUser(id: string = "652c26e88bab84882a3e8ef1", name: string,
 
 // Returns a user if successful, otherwise returns an empty object
 // right now, id is hardcoded to a valid user id. In the future, will implement authentication and get the id from there
-async function getUser(id: string = "652c26e88bab84882a3e8ef1"): Promise<object> {
-  const response = await fetch(`http://localhost:3000/users/${id}`);
+export async function getUser(id: string = "652c26e88bab84882a3e8ef1"): Promise<object> {
+  const response = await fetch(`${serverUrl}/users/${id}`);
 
   if (!response.ok) {
     console.log('Failed to get user');

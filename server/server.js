@@ -3,10 +3,10 @@ const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const { ObjectId } = require('mongodb');
 const uri = "mongodb+srv://PrinciplesSWE:VandyIceHockey@danielblog.te9b5na.mongodb.net/?retryWrites=true&w=majority";
-
+const cors = require('cors');
 const app = express();
-const PORT = 3000;
-
+const PORT = 3001;
+app.use(cors());
 app.use(bodyParser.json());
 
 let client;
@@ -55,6 +55,7 @@ app.get('/users/:id', async (req, res) => {
 app.put('/users/:id', async (req, res) => {
     try {
         const userId = new ObjectId(req.params.id);
+        console.log(req.body)
         const updatedUser = await collection.findOneAndUpdate({ _id: userId }, { $set: req.body });
         if (!updatedUser) return res.status(404).send('User not found');
         res.status(200).json({ message: "Document updated successfully", data: updatedUser });
@@ -75,7 +76,7 @@ app.put('/users/:id', async (req, res) => {
 app.post('/users', async (req, res) => {
     try {
         const newUser = await collection.insertOne(req.body);
-        res.status(201).send(newUser.ops[0]);
+        res.status(201).send(newUser.insertedId);
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error');
