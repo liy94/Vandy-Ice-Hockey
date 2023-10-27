@@ -1,22 +1,22 @@
-"use client"; 
+"use client";
 
 import { useState } from "react";
 import "./rider.css"; // Import the CSS file with the styles
 import Link from "next/link";
-import images from '../imageLoader';
-import Image from 'next/image';
+import images from "../imageLoader";
+import Image from "next/image";
 
 // Define a React functional component named App
 const App: React.FC = () => {
-
   const driver = [
     {
       name: "Driver ex 1",
       phone: "111-111-1111",
       email: "ex@gmail.com",
-    }
+    },
   ];
-  const location = "zeppos"; // Get this from the backend
+  const locations = ["commons", "kissam"]; // Get this from the backend
+  const location = locations[0]; // Temporary array to get rid of comparison error
 
   // Define the selected image based on the location
   let selectedImage;
@@ -53,7 +53,7 @@ const App: React.FC = () => {
             target="_self"
             rel="noopener noreferrer"
           >
-            All Responses 
+            All Responses
           </Link>
         </div>
       </div>
@@ -62,14 +62,27 @@ const App: React.FC = () => {
           {/* User information content */}
           <h2> Here is your pick up information at {location}</h2>
           <h3>Look for {driver[0].name}</h3>
-          <p>Your driver is {driver[0].name} and you can contact them at {driver[0].phone}</p>
+          <p>
+            Your driver is {driver[0].name} and you can contact them at{" "}
+            {driver[0].phone}
+          </p>
         </div>
         <div className="right-half">
           <div className="map-container">
             <h3>{location}</h3>
-          {/* link to google maps website with the correct location inputted  */}
-            <a href={`https://www.google.com/maps?q=${encodeURIComponent(location + " nashville tn")}`} target="_blank">
-              <Image src={selectedImage} alt={`not found: ${location}`} width={500} height={500} />
+            {/* link to google maps website with the correct location inputted  */}
+            <a
+              href={`https://www.google.com/maps?q=${encodeURIComponent(
+                location + " nashville tn"
+              )}`}
+              target="_blank"
+            >
+              <Image
+                src={`${selectedImage}`}
+                alt={`not found: ${location}`}
+                width={500}
+                height={500}
+              />
             </a>
           </div>
         </div>

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import styles from "../page.module.css";
 import { useRouter } from "next/navigation";
-import { createUser, updateUser } from '../../utils/formUtils';
+import { createUser, updateUser } from "../../utils/formUtils";
 
 export default function RegistrationForm() {
   return (
@@ -29,8 +29,10 @@ function Form() {
 
   const submitHandler = (e: any) => {
     e.preventDefault();
-    createUser(name, email, phone, location, car==="Yes", seats);
+    createUser(name, email, phone, location, car === "Yes", seats);
     console.log("form submitted");
+
+    // Redirect user to appropriate page depending on if they are a driver or rider.
     if (car === "Yes") {
       router.push("/driverView");
     } else {
@@ -110,6 +112,7 @@ function Form() {
           No
         </label>
       </div>
+      {/* Only ask how many seats their car has if they selected that they are a driver */}
       {car === "Yes" ? (
         <div>
           <label className={styles.formLabel}>

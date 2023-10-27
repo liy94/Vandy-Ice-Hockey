@@ -1,10 +1,10 @@
-"use client"; 
+"use client";
 
 import { useState } from "react";
 import "./driver.css"; // Import the CSS file with the styles
 import Link from "next/link";
-import images from '../imageLoader';
-import Image from 'next/image';
+import images from "../imageLoader";
+import Image from "next/image";
 
 // Define a React functional component named App
 const App: React.FC = () => {
@@ -27,7 +27,8 @@ const App: React.FC = () => {
     },
   ];
 
-  const location = "commons"; // Get this from the backend
+  const locations = ["commons", "kissam"]; // Get this from the backend
+  const location = locations[1]; // Temporary array to get rid of comparison error
 
   // Define the selected image based on the location
   let selectedImage;
@@ -48,7 +49,6 @@ const App: React.FC = () => {
       <div className="header">
         <h1>Hello, USER</h1>
         <div className="links">
-
           {/* link to edit response form */}
           <Link
             href="/registrationForm"
@@ -94,9 +94,19 @@ const App: React.FC = () => {
           {/* Google Maps API */}
           <div className="map-container">
             <h3>{location}</h3>
-          {/* link to google maps website with the correct location inputted  */}
-          <a href={`https://www.google.com/maps?q=${encodeURIComponent(location + " Nashville, TN")}`} target="_blank">
-              <Image src={selectedImage} alt={`not found: ${location}`} width={500} height={500} />
+            {/* link to google maps website with the correct location inputted  */}
+            <a
+              href={`https://www.google.com/maps?q=${encodeURIComponent(
+                location + " Nashville, TN"
+              )}`}
+              target="_blank"
+            >
+              <Image
+                src={`${selectedImage}`}
+                alt={`not found: ${location}`}
+                width={500}
+                height={500}
+              />
             </a>
           </div>
         </div>
