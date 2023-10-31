@@ -2,8 +2,7 @@
 
 import styles from "./page.module.css";
 import Link from "next/link";
-
-const clientId = "884218967366-bdp7ovau82hdbati7a3kfanock9amqak.apps.googleusercontent.com";
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 export default function Login() {
 
