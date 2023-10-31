@@ -30,7 +30,7 @@ function Form() {
 
   const submitHandler = (e: any) => {
     e.preventDefault();
-    createUser(name, email, phone, attendance, location, car === "Yes", seats);
+    createUser(name, email, phone, attendance === "Yes", location, car === "Yes", seats);
     console.log("form submitted");
 
     // Redirect user to appropriate page depending on if they are a driver or rider.
