@@ -4,7 +4,7 @@
 const serverUrl = 'http://localhost:3001';
 
 // should check whether the user exists in the future
-export async function createUser(name: string, email: string, mobile_number: string, attendance: boolean, pickup_location: string, has_car: boolean = false, car_capacity: number = 0): Promise<void> {
+export async function createUser(name: string, email: string, mobile_number: string, attendance: string, pickup_location: string, has_car: boolean = false, car_capacity: number = 0): Promise<void> {
   console.log('here')
   const response = await fetch(`${serverUrl}/users`, {
     method: 'POST',
