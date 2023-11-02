@@ -6,35 +6,31 @@
   padding: 1rem;
   display: flex;
   align-items: center;
-  margin: 0 auto;
-  text-align: center; /* Center text on smaller screens */
+  text-align: center;
 }
 
 .header h1 {
   color: #cfae73;
-  font-size: 1.5rem; /* Adjust the font size for smaller screens */
+  font-size: 1.2rem; /* Adjust the font size for smaller screens */
 }
 
 .header .links {
-  margin: 1rem 0; /* Add space around the links on smaller screens */
+  margin: 1rem 0;
   display: flex;
-  flex-wrap: wrap; /* Allow links to wrap to the next line on smaller screens */
-  justify-content: center; /* Center the links horizontally */
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .card {
-  margin-left: auto; /* Move the card components to the right side of the screen */
-  margin-right: 16px; /* Add space to the right of the card components */
+  margin: 16px 0; /* Add space between card components on smaller screens */
   padding: 10px;
   cursor: pointer;
-  font-size: medium;
+  font-size: 0.9rem; /* Adjust the font size for smaller screens */
   border-radius: var(--border-radius);
   background: rgba(var(--card-rgb), 1);
   border: 1px solid rgba(var(--card-rgb), 1);
   transition: background 200ms, border 200ms;
   max-width: 100%;
-  text-align: right; /* Center text on smaller screens */
-
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -57,8 +53,8 @@
 /* Container Styles */
 .container {
   display: flex;
-  flex-wrap: wrap; /* Allow containers to wrap to the next line on smaller screens */
-  justify-content: center; /* Center the containers horizontally */
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 /* Left Half Styles */
@@ -66,16 +62,16 @@
   flex: 1;
   padding: 1rem;
   background-color: #f0f0f0;
-  margin: 16px; /* Add space around the left-half container on smaller screens */
+  margin: 16px;
 }
 
 .left-half h2 {
-  padding-bottom: 20px; /* Adjust the value to control the spacing */
-  font-size: 1.2rem; /* Adjust the font size for smaller screens */
+  padding-bottom: 20px;
+  font-size: 1.1rem; /* Adjust the font size for smaller screens */
 }
 
 .left-half li {
-  margin-bottom: 20px; /* Adjust the value to control the spacing */
+  margin-bottom: 20px;
 }
 
 /* Right Half Styles */
@@ -83,12 +79,12 @@
   flex: 1;
   padding: 1rem;
   background-color: #ffffff;
-  margin: 16px; /* Add space around the right-half container on smaller screens */
+  margin: 16px;
 }
 
 /* Google Maps Container Styles */
 .map-container {
-  height: 300px; /* Adjust the height for better mobile display */
+  height: 200px; /* Adjust the height for better mobile display */
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -96,20 +92,18 @@
 /* Media Query for iPhone and Small Screens */
 @media only screen and (max-width: 768px) {
   .container {
-    flex-direction: column; /* Stack children vertically on small screens */
-  }
-  
-  .header h1 {
-    font-size: 1.2rem; /* Adjust the font size for smaller screens */
+    flex-direction: column;
+  margin: 0; /* Remove the margin for better mobile display */
   }
 
   .left-half,
   .right-half {
-    flex: auto; /* Make both left and right halves take full width on small screens */
-    margin: 8px; /* Add space around the left and right halves on smaller screens */
+    flex: auto;
+    margin: 8px;
+  padding: 0;
   }
 
   .left-half h2 {
-    font-size: 1.1rem; /* Adjust the font size for smaller screens */
+    font-size: 1rem;
   }
 }
