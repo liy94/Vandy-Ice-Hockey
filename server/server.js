@@ -65,6 +65,21 @@ app.put('/users/:id', async (req, res) => {
     }
 });
 
+// GET /users
+// This endpoint retrieves data about all users from the Users collection.
+// Response:
+// 200 OK: An array of user data in JSON format.
+// 500 Internal Server Error: If an error occurs while retrieving the users.
+app.get('/users', async (req, res) => {
+    try {
+        const users = await collection.find({}).toArray();
+        res.status(200).json(users);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 // POST /users
 // This endpoint creates a new user in the Users collection.
 // Request Body:
