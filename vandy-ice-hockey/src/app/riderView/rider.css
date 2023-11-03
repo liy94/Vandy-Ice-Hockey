@@ -4,17 +4,16 @@
 .header {
   background-color: #333;
   padding: 1rem;
-  display: flex; /* Center header content vertically */
-  align-items: center; /* Center header content vertically */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Spread elements apart horizontally */
   margin: 0 auto;
+  text-align: center; /* Center text on smaller screens */
 }
 
 .header h1 {
   color: #cfae73;
-}
-
-.header .links {
-  margin-left: auto;
+  font-size: 1.5rem; /* Adjust the font size for smaller screens */
 }
 
 .card {
@@ -28,29 +27,20 @@
   transition: background 200ms, border 200ms;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .card:hover {
-    background: rgba(var(--light-card-rgb), 1);
-    border: 1px solid rgba(var(--card-border-rgb), 0.15);
-  }
-
-  .card:hover span {
-    transform: translateX(4px);
-  }
+.card:hover {
+  background: rgba(var(--light-card-rgb), 1);
+  border: 1px solid rgba(var(--card-border-rgb), 0.15);
 }
 
-@media (prefers-reduced-motion) {
-  .card:hover span {
-    transform: none;
-  }
+.card:hover span {
+  transform: translateX(4px);
 }
 
 /* Container Styles */
 .container {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  height: calc(100vh - 50px); /* Subtract header height */
+  margin: 16px; /* Add space around the container */
+  justify-content: space-between; /* Spread elements apart horizontally */
 }
 
 /* Left Half Styles */
@@ -58,15 +48,15 @@
   flex: 1;
   padding: 1rem;
   background-color: #f0f0f0;
-  overflow: auto; /* Enable scrolling if content overflows */
 }
 
 .left-half h2 {
-  padding-bottom: 20px; /* Adjust the value to control the spacing */
+  font-size: 1.5rem; /* Adjust the font size for better readability */
+  margin-bottom: 20px; /* Increase spacing between elements */
 }
 
 .left-half li {
-  margin-bottom: 20px; /* Adjust the value to control the spacing */
+  margin-bottom: 20px; /* Increase spacing between list items */
 }
 
 /* Right Half Styles */
@@ -76,9 +66,40 @@
   background-color: #ffffff;
 }
 
+.right-half .links {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  align-items: center; /* Center buttons horizontally */
+}
+
+.right-half .links a {
+  margin-bottom: 10px; /* Add space between the buttons */
+}
+
 /* Google Maps Container Styles */
 .map-container {
-  height: 100%;
+  height: 300px; /* Adjust the height for better display on larger screens */
   border: 1px solid #ddd;
   border-radius: 4px;
+}
+
+/* Media Query for iPhone and Small Screens */
+@media only screen and (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Stack children vertically on small screens */
+  }
+
+  .header h1 {
+    font-size: 1.2rem; /* Adjust the font size for smaller screens */
+  }
+
+  .left-half,
+  .right-half {
+    flex: auto; /* Make both left and right halves take full width on small screens */
+    margin: 8px; /* Add space around the left and right halves on smaller screens */
+  }
+
+  .left-half h2 {
+    font-size: 1.1rem; /* Adjust the font size for smaller screens */
+  }
 }

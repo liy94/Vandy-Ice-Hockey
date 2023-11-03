@@ -6,6 +6,7 @@
   padding: 1rem;
   display: flex;
   align-items: center;
+  justify-content: space-between; /* Spread elements apart horizontally */
   margin: 0 auto;
   text-align: center; /* Center text on smaller screens */
 }
@@ -15,15 +16,8 @@
   font-size: 1.5rem; /* Adjust the font size for smaller screens */
 }
 
-.header .links {
-  margin: 1rem 0; /* Add space around the links on smaller screens */
-  display: flex;
-  flex-wrap: wrap; /* Allow links to wrap to the next line on smaller screens */
-  justify-content: center; /* Center the links horizontally */
-}
-
 .card {
-  margin: 16px auto;
+  margin-left: 16px;
   padding: 10px;
   cursor: pointer;
   font-size: medium;
@@ -31,7 +25,6 @@
   background: rgba(var(--card-rgb), 1);
   border: 1px solid rgba(var(--card-rgb), 1);
   transition: background 200ms, border 200ms;
-  max-width: 100%; /* Ensure the card doesn't overflow on small screens */
 }
 
 .card:hover {
@@ -47,6 +40,7 @@
 .container {
   display: flex;
   margin: 16px; /* Add space around the container */
+  justify-content: space-between; /* Spread elements apart horizontally */
 }
 
 /* Left Half Styles */

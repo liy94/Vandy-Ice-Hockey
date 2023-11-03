@@ -56,7 +56,7 @@ const App: React.FC = () => {
             target="_self"
             rel="noopener noreferrer"
           >
-            EEEE
+            Edit Form
           </Link>
 
           {/* link to view all responses form */}
