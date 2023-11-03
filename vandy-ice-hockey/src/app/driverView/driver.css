@@ -4,19 +4,23 @@
 .header {
   background-color: #333;
   padding: 1rem;
-  display: flex; /* Center header content vertically */
-  align-items: center; /* Center header content vertically */
+  display: flex;
+  align-items: center;
   margin: 0 auto;
+  text-align: center; /* Center text on smaller screens */
 }
 
 .header h1 {
   color: #cfae73;
+  font-size: 1.5rem; /* Adjust the font size for smaller screens */
 }
 
 .header .links {
-  margin-left: auto;
+  margin: 1rem 0; /* Add space around the links on smaller screens */
+  display: flex;
+  flex-wrap: wrap; /* Allow links to wrap to the next line on smaller screens */
+  justify-content: center; /* Center the links horizontally */
 }
-
 
 .card {
   margin: 16px auto;
@@ -30,26 +34,19 @@
   max-width: 100%; /* Ensure the card doesn't overflow on small screens */
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .card:hover {
-    background: rgba(var(--light-card-rgb), 1);
-    border: 1px solid rgba(var(--card-border-rgb), 0.15);
-  }
-
-  .card:hover span {
-    transform: translateX(4px);
-  }
+.card:hover {
+  background: rgba(var(--light-card-rgb), 1);
+  border: 1px solid rgba(var(--card-border-rgb), 0.15);
 }
 
-@media (prefers-reduced-motion) {
-  .card:hover span {
-    transform: none;
-  }
+.card:hover span {
+  transform: translateX(4px);
 }
 
 /* Container Styles */
 .container {
   display: flex;
+  margin: 16px; /* Add space around the container */
 }
 
 /* Left Half Styles */
@@ -60,11 +57,12 @@
 }
 
 .left-half h2 {
-  padding-bottom: 20px; /* Adjust the value to control the spacing */
+  font-size: 1rem; /* Adjust the font size for better readability */
+  margin-bottom: 10px; /* Increase spacing between elements */
 }
 
 .left-half li {
-  margin-bottom: 20px; /* Adjust the value to control the spacing */
+  margin-bottom: 10px; /* Increase spacing between list items */
 }
 
 /* Right Half Styles */
@@ -72,6 +70,15 @@
   flex: 1;
   padding: 1rem;
   background-color: #ffffff;
+}
+
+.right-half .links {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+}
+
+.right-half .links a {
+  margin-bottom: 10px; /* Add space between the buttons */
 }
 
 /* Google Maps Container Styles */
@@ -87,12 +94,17 @@
     flex-direction: column; /* Stack children vertically on small screens */
   }
 
+  .header h1 {
+    font-size: 1.2rem; /* Adjust the font size for smaller screens */
+  }
+
   .left-half,
   .right-half {
     flex: auto; /* Make both left and right halves take full width on small screens */
+    margin: 8px; /* Add space around the left and right halves on smaller screens */
   }
-  
-  .map-container {
-    height: 200px; /* Adjust the height for small screens */
+
+  .left-half h2 {
+    font-size: 1.1rem; /* Adjust the font size for smaller screens */
   }
 }
