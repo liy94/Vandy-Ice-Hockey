@@ -22,7 +22,7 @@ export default function Login() {
         </>
       ) : (
         <>
-          <button onClick={() => signIn('google')}>Sign in with Google</button>
+          <button className={ styles.submitButton } onClick={() => signIn('google')}>Sign in with Google</button>
         </>
       )}
     </main>
