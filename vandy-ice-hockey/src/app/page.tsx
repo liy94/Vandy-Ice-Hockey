@@ -12,6 +12,16 @@ export default function Login() {
         <h2>Vanderbilt Ice Hockey Carpool</h2>
       </div>
 
+      <Link
+            href="/registrationForm"
+            className={styles.card}
+            target="_self"
+            rel="noopener noreferrer"
+          >
+            <h2>Login <span>-&gt;</span></h2>
+            <p>Login or register here</p>
+          </Link>
+
       {/* Check if the user is logged in */}
       {session ? (
         <>
@@ -22,15 +32,6 @@ export default function Login() {
         </>
       ) : (
         <>
-          <Link
-            href="/registrationForm"
-            className={styles.card}
-            target="_self"
-            rel="noopener noreferrer"
-          >
-            <h2>Login <span>-&gt;</span></h2>
-            <p>Login or register here</p>
-          </Link>
           <button onClick={() => signIn('google')}>Sign in with Google</button>
         </>
       )}
