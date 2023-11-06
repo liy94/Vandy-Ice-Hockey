@@ -49,27 +49,25 @@ const App: React.FC = () => {
       <div className="header">
         <h1>Hello, USER</h1>
         <div className="links">
-          {/* link to edit response form */}
-          <Link
-            href="/registrationForm"
-            className="card"
-            target="_self"
-            rel="noopener noreferrer"
-          >
-            Edit Form
-          </Link>
+    <Link
+      href="/registrationForm"
+      className="link-card" // Use the new class
+      target="_self"
+      rel="noopener noreferrer"
+    >
+      Edit Form
+    </Link>
 
-          {/* link to view all responses form */}
-          <Link
-            href="/responsesView"
-            className="card"
-            target="_self"
-            rel="noopener noreferrer"
-          >
-            All Responses
-          </Link>
-        </div>
-      </div>
+    <Link
+      href="/responsesView"
+      className="link-card" // Use the new class
+      target="_self"
+      rel="noopener noreferrer"
+    >
+      All Responses
+    </Link>
+  </div>
+</div>
       <div className="container">
         <div className="left-half">
           {/* User information content */}

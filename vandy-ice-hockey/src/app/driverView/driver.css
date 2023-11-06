@@ -16,23 +16,24 @@
   font-size: 1.5rem; /* Adjust the font size for smaller screens */
 }
 
-.card {
+.link-card {
   margin-left: 16px;
+  margin: 6px;
   padding: 10px;
   cursor: pointer;
-  font-size: medium;
+  font-size: smaller;
   border-radius: var(--border-radius);
   background: rgba(var(--card-rgb), 1);
   border: 1px solid rgba(var(--card-rgb), 1);
   transition: background 200ms, border 200ms;
 }
 
-.card:hover {
+.link-card:hover {
   background: rgba(var(--light-card-rgb), 1);
   border: 1px solid rgba(var(--card-border-rgb), 0.15);
 }
 
-.card:hover span {
+.link-card:hover span {
   transform: translateX(4px);
 }
 
@@ -82,8 +83,10 @@
   border-radius: 4px;
 }
 
+
+
 /* Media Query for iPhone and Small Screens */
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 800px) {
   .container {
     flex-direction: column; /* Stack children vertically on small screens */
   }
@@ -94,20 +97,23 @@
 
   .left-half,
   .right-half {
+    flex-direction: row;
     flex: auto; /* Make both left and right halves take full width on small screens */
     margin: 8px; /* Add space around the left and right halves on smaller screens */
 
-    /* Modifications for card and map-container on small screens (iPhone) */
-    .card {
-      margin-left: 8px;
-      padding: 5px;
-      font-size: small;
-      border: 1px solid rgba(var(--card-rgb), 0.8);
-      max-width: 80%;
+    .link-card {
+      margin: 8px;
+      padding: 10px;
+      cursor: pointer;
+      font-size: small; /* Adjust the font size of the buttons for smaller screens (e.g., iPhones) */
+      border-radius: var(--border-radius);
+      background: rgba(var(--card-rgb), 1);
+      border: 1px solid rgba(var(--card-rgb), 1);
+      transition: background 200ms, border 200ms;
     }
 
     .map-container {
-      height: 200px;
+      height: 200px; /* Adjust the height for small screens */
     }
   }
 

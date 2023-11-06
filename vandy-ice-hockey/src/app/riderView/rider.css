@@ -17,10 +17,10 @@
 }
 
 .card {
-  margin-left: 16px;
+  margin: 6px; /* Add space around the link-card */
   padding: 10px;
   cursor: pointer;
-  font-size: medium;
+  font-size: smaller; /* Adjust the font size to match the card elements */
   border-radius: var(--border-radius);
   background: rgba(var(--card-rgb), 1);
   border: 1px solid rgba(var(--card-rgb), 1);
@@ -98,7 +98,7 @@
     flex: auto; /* Make both left and right halves take full width on small screens */
     margin: 8px; /* Add space around the left and right halves on smaller screens */
 
-    .card {
+    .link-card {
       margin-left: 8px;
       padding: 5px;
       font-size: small;
