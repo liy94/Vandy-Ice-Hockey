@@ -6,4 +6,6 @@ export interface User {
   hasCar: string;
   numberOfSeats: number;
   location: string;
+  driver: string;
+  riders: string[];
 }
