@@ -4,7 +4,7 @@ import { useState } from "react";
 import styles from "../page.module.css";
 import { useRouter } from "next/navigation";
 import { createUser } from "../../utils/apiUtils";
-
+import { User } from '../../types/User'
 
 
 export default function RegistrationForm() {
@@ -31,8 +31,19 @@ function Form() {
   const [location, setLocation] = useState("");
 
   const submitHandler = (e: any) => {
+    const newUser : User = {
+      name: name,
+      email: email,
+      phone: phone,
+      attendance: attendance,
+      hasCar: car,
+      numberOfSeats: seats,
+      location: location,
+      driver: "",
+      riders: [],
+    }
     e.preventDefault();
-    // createUser(name, email, phone, attendance, location, car, seats);
+    createUser(newUser);
     console.log("form submitted");
 
     // Redirect user to appropriate page depending on if they are a driver or rider.

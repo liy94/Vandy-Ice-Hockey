@@ -24,6 +24,25 @@ export const fetchUserWithStatus = (email : string) => {
     });
 };
 
+export const fetchAllUsersWithStatus = () => {
+  return fetch(`${serverUrl}/users`)
+    .then(response => {
+      if (!response.ok) {
+        // Instead of throwing an error, we resolve with the status and statusText
+        return { status: response.status, statusText: response.statusText, data: null };
+      }
+      return response.json().then(data => ({
+        status: response.status,
+        data: data,
+      }));
+    })
+    .catch(error => {
+      // Handle network errors or other fetch issues
+      console.error('Fetch error:', error);
+      throw error;
+    });
+};
+
 
 export async function createUser(userData: User) {
   try {
