@@ -97,6 +97,18 @@
   .right-half {
     flex: auto; /* Make both left and right halves take full width on small screens */
     margin: 8px; /* Add space around the left and right halves on smaller screens */
+
+    .card {
+      margin-left: 8px;
+      padding: 5px;
+      font-size: small;
+      border: 1px solid rgba(var(--card-rgb), 0.8);
+      max-width: 80%;
+    }
+
+    .map-container {
+      height: 200px; /* Adjust the height for small screens */
+    }
   }
 
   .left-half h2 {
