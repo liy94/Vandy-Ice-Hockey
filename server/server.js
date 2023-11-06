@@ -42,6 +42,8 @@ app.get('/users/:id', async (req, res) => {
     }
 });
 
+
+
 // PUT /users/:id
 // This endpoint updates a user in the Users collection by ID.
 // @params id: The ID of the user to update.
@@ -64,6 +66,37 @@ app.put('/users/:id', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
+
+// GET /users/email/:email
+// This endpoint retrieves a user from the Users collection by email.
+// @params email: The email of the user to retrieve.
+// Response:
+// 200 OK: The user data in JSON format.
+// 404 Not Found: If the user with the specified email does not exist.
+// 400 Bad Request: If the email is not a valid email address.
+// 500 Internal Server Error: If an error occurs while retrieving the user.
+app.get('/users/email/:email', async (req, res) => {
+    try {
+        const userEmail = req.params.email;
+
+        // Validate the email address
+        // You can use a more robust validation method as required for your use case
+        if (!userEmail || !/^\S+@\S+\.\S+$/.test(userEmail)) {
+            return res.status(400).send('Invalid email address');
+        }
+
+        const user = await collection.findOne({ email: userEmail });
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+        res.json(user);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 
 // GET /users
 // This endpoint retrieves data about all users from the Users collection.
