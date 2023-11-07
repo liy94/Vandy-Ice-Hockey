@@ -16,7 +16,15 @@ export default function Login() {
       {session ? (
         <>
           {session.user ? (
-            <p>Welcome, {session.user.email}</p>
+      <Link
+      href="/registrationForm"
+      className={styles.card}
+      target="_self"
+      rel="noopener noreferrer"
+    >
+      <h2>Login <span>-&gt;</span></h2>
+      <p>Login or register here</p>
+    </Link>
           ) : null}
           <button onClick={() => signOut()}>Sign out</button>
         </>
