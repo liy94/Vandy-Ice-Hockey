@@ -1,20 +1,44 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./rider.css"; // Import the CSS file with the styles
 import Link from "next/link";
 import images from "../imageLoader";
 import Image from "next/image";
+import { User } from "../../types/User";
+import { fetchUserWithStatus } from  "../../utils/apiUtils";
+
 
 // Define a React functional component named App
 const App: React.FC = () => {
-  const driver = [
-    {
-      name: "Driver ex 1",
-      phone: "111-111-1111",
-      email: "ex@gmail.com",
-    },
-  ];
+  const [driver, setDriver] = useState<User[]>([{
+    name: "Loading",
+    phone: "111-111-1111",
+    email: "",
+    attendance: "",
+    hasCar: "",
+    numberOfSeats: 0,
+    location: "",
+    driver: "",
+    riders: [],
+  }])
+
+  const userEmail = "Rider1@example.com" // TODO: get this from session storage
+  useEffect(() => {
+    fetchUserWithStatus(userEmail).then((response) => { 
+      if (response.status === 200) {
+        fetchUserWithStatus(response.data.driver).then((response) => {
+          if (response.status === 200) {
+            setDriver([response.data])
+          }
+        })   
+      }
+      // console.log(users)
+    });
+  }, []);
+
+
+
   const locations = ["commons", "kissam"]; // Get this from the backend
   const location = locations[0]; // Temporary array to get rid of comparison error
 
