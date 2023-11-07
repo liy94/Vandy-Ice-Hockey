@@ -24,6 +24,7 @@ export const fetchUserWithStatus = (email : string) => {
     });
 };
 
+
 export const fetchAllUsersWithStatus = () => {
   return fetch(`${serverUrl}/users`)
     .then(response => {
@@ -42,6 +43,30 @@ export const fetchAllUsersWithStatus = () => {
       throw error;
     });
 };
+
+
+export async function updateUser(userData: User) {
+  try {
+    const response = await fetch(`${serverUrl}/users/email/${userData.email}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('Success:', data);
+    return data; // This contains the new user's insertedId if needed
+  } catch (error) {
+    console.error('Error:', error);
+    throw error; // Rethrowing the error to handle it where the function is called
+  }
+}
 
 
 export async function createUser(userData: User) {

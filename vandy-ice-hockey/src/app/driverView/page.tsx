@@ -33,7 +33,7 @@ const App: React.FC = () => {
   const userEmail = "jane.doe@example.com" // TODO: get this from session storage
   useEffect(() => {
     const fetchRiderEmails = async () => {
-      fetchUserWithStatus(userEmail).then((response) => { 
+      fetchUserWithStatus(userEmail).then((response : any) => { 
         if (response.status === 200) {
           setRiderEmails(response.data.riders);
         }

@@ -57,7 +57,6 @@ app.get('/users/:id', async (req, res) => {
 app.put('/users/:id', async (req, res) => {
     try {
         const userId = new ObjectId(req.params.id);
-        console.log(req.body)
         const updatedUser = await collection.findOneAndUpdate({ _id: userId }, { $set: req.body });
         if (!updatedUser) return res.status(404).send('User not found');
         res.status(200).json({ message: "Document updated successfully", data: updatedUser });
@@ -66,6 +65,25 @@ app.put('/users/:id', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
+
+app.put('/users/email/:email', async (req, res) => {
+    try {
+        const userEmail = req.params.email;
+        // Validate the email address
+        // You can use a more robust validation method as required for your use case
+        if (!userEmail || !/^\S+@\S+\.\S+$/.test(userEmail)) {
+            return res.status(400).send('Invalid email address');
+        }
+        const updatedUser = await collection.findOneAndUpdate({ email: userEmail }, { $set: req.body });
+        if (!updatedUser) return res.status(404).send('User not found');
+        res.status(200).json({ message: "Document updated successfully", data: updatedUser });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 
 
 // GET /users/email/:email
