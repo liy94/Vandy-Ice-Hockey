@@ -2,8 +2,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const { ObjectId } = require('mongodb');
-const uri = "mongodb+srv://PrinciplesSWE:VandyIceHockey@danielblog.te9b5na.mongodb.net/?retryWrites=true&w=majority";
+const http = require('http');
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
 const cors = require('cors');
+
+
+const uri = "mongodb+srv://PrinciplesSWE:VandyIceHockey@danielblog.te9b5na.mongodb.net/?retryWrites=true&w=majority";
 const app = express();
 const PORT = 443;
 app.use(cors());
