@@ -5,12 +5,17 @@ const { ObjectId } = require('mongodb');
 const uri = "mongodb+srv://PrinciplesSWE:VandyIceHockey@danielblog.te9b5na.mongodb.net/?retryWrites=true&w=majority";
 const cors = require('cors');
 const app = express();
-const PORT = 3001;
+const PORT = 443;
 app.use(cors());
 app.use(bodyParser.json());
 
 let client;
 let collection;
+
+const sslOptions = {
+    key: fs.readFileSync('/etc/letsencrypt/live/dzgwriting.xyz/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/dzgwriting.xyz/fullchain.pem')
+};
 
 MongoClient.connect(uri)
     .then(_client => {
@@ -149,8 +154,10 @@ app.post('/users', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+const httpsServer = https.createServer(sslOptions, app);
+
+httpsServer.listen(PORT, () => {
+  console.log(`HTTPS Server running on port ${PORT}`);
 });
 
 process.on('SIGINT', () => {
