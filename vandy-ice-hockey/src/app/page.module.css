@@ -14,6 +14,7 @@
     display: flex;
     align-items: center;
     margin: 0 auto;
+    margin-bottom: 25px;
     justify-content: space-between;
     text-align: center;
     width: 100%; /* Add this to ensure full width */
@@ -222,6 +223,16 @@
 
   /* Mobile */
   @media (max-width: 700px) {
+    .header {
+      flex-direction: column; /* Stack header elements vertically */
+      align-items: flex-start; /* Align header items to the left */
+    }
+  
+    .header h1 {
+      font-size: 1.2rem; /* Adjust the font size for smaller screens */
+      margin-bottom: 20px;
+    }
+
     .content {
       padding: 4rem;
     }

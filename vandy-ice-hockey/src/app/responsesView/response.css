@@ -90,3 +90,15 @@
     background-color: #f5f5f5;
   }
   
+  /* Narrow Screen Styles */
+@media screen and (max-width: 768px) {
+  .header {
+    flex-direction: column; /* Stack header elements vertically */
+    align-items: flex-start; /* Align header items to the left */
+  }
+
+  .header h1 {
+    font-size: 1.2rem; /* Adjust the font size for smaller screens */
+    margin-bottom: 20px;
+  }
+}

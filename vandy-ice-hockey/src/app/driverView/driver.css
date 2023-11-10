@@ -87,7 +87,6 @@
 /* Google Maps Container Styles */
 .map-container {
   height: 500px; /* Adjust the height for better mobile display */
-  border: 1px solid #ddd;
   border-radius: 4px;
 }
 
