@@ -25,17 +25,6 @@
   flex-grow: 1; /* Allow the h1 to take available space and center-align it */
 }
 
-.card {
-  margin: 6px; /* Add space around the link-card */
-  padding: 10px;
-  cursor: pointer;
-  font-size: smaller; /* Adjust the font size to match the card elements */
-  border-radius: var(--border-radius);
-  background: rgba(var(--card-rgb), 1);
-  border: 1px solid rgba(var(--card-rgb), 1);
-  transition: background 200ms, border 200ms;
-}
-
 
   .link-card {
     margin: 6px; /* Add space around the link-card */
