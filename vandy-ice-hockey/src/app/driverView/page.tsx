@@ -5,6 +5,7 @@ import "./driver.css"; // Import the CSS file with the styles
 import Link from "next/link";
 import images from "../imageLoader";
 import Image from "next/image";
+import logo from "../img/logo.png";
 import { User } from "../../types/User";
 import { fetchUserWithStatus } from  "../../utils/apiUtils";
 import { fetchAndAdd } from "../../utils/driverViewUtils";
@@ -82,7 +83,8 @@ const App: React.FC = () => {
   return (
     <div className="app">
       <div className="header">
-        <h1>Hello, USER</h1>
+        <Image src={logo} alt="Logo" className="logo" />
+        <h1>Vandy Ice Hockey Carpool</h1>
         <div className="links">
     <Link
       href="/registrationForm"

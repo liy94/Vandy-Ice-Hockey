@@ -1,19 +1,31 @@
 /* styles.css */
 
+
 /* Header Styles */
 .header {
   background-color: #333;
   padding: 1rem;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Spread elements apart horizontally */
   margin: 0 auto;
-  text-align: center; /* Center text on smaller screens */
+  justify-content: space-between;
+  text-align: center;
+  width: 100%; /* Add this to ensure full width */
+}
+
+/* Add a CSS class for the logo */
+.logo {
+  /* Position the logo in the left corner */
+  margin-right: auto;
+  width: 100px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
 }
 
 .header h1 {
   color: #cfae73;
-  font-size: 1.5rem; /* Adjust the font size for smaller screens */
+  font-size: 1.5rem;
+  margin: 0;
+  flex-grow: 1; /* Allow the h1 to take available space and center-align it */
 }
 
 .card {
@@ -26,6 +38,31 @@
   border: 1px solid rgba(var(--card-rgb), 1);
   transition: background 200ms, border 200ms;
 }
+
+.card:hover {
+  background: rgba(var(--light-card-rgb), 1);
+  border: 1px solid rgba(var(--card-border-rgb), 0.15);
+}
+
+.card:hover span {
+  transform: translateX(4px);
+}
+
+/* Container Styles */
+.container {
+  display: flex;
+  margin: 16px; /* Add space around the container */
+  justify-content: space-between; /* Spread elements apart horizontally */
+}
+
+/* Left Half Styles */
+.left-half {
+  flex: 1;
+  padding: 1rem;
+  background-color: #f0f0f0;
+}
+
+
 
 .card:hover {
   background: rgba(var(--light-card-rgb), 1);

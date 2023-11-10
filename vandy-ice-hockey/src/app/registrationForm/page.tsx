@@ -3,7 +3,7 @@
 import { useState } from "react";
 import styles from "../page.module.css";
 import { useRouter } from "next/navigation";
-// import { createUser,  } from "../../utils/apiUtils";
+ import { createUser,  } from "../../utils/apiUtils";
 import { createOrUpdateUser } from "../../utils/registrationFormUtils";
 import { User } from '../../types/User'
 
@@ -31,8 +31,6 @@ function Form() {
   const [seats, setSeats] = useState(0);
   const [location, setLocation] = useState("");
 
-
-
   const submitHandler = (e: any) => {
     const newUser : User = {
       name: name,
@@ -46,11 +44,15 @@ function Form() {
       riders: [],
     }
     e.preventDefault();
-    createOrUpdateUser(newUser);
+    createUser(newUser);
     console.log("form submitted");
 
-    // Redirect user to appropriate page depending on if they are a driver or rider.
-    if (car === "Yes") {
+    // Redirect user to appropriate page depending on if they are a driver or rider or not going .
+    if(attendance=="No"){
+      router.push("/notComing");
+      console.log("attendance is no");
+    }
+    else if (car === "Yes") {
       router.push("/driverView");
     } else {
       router.push("/riderView");
