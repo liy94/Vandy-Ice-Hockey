@@ -5,62 +5,87 @@ import "./rider.css"; // Import the CSS file with the styles
 import Link from "next/link";
 import images from "../imageLoader";
 import Image from "next/image";
-import logo from "../img/logo.png"
+import logo from "../img/logo.png";
 import { User } from "../../types/User";
-import { fetchUserWithStatus } from  "../../utils/apiUtils";
-
+import { fetchUserWithStatus } from "../../utils/apiUtils";
+import { useSession } from "next-auth/react";
 
 // Define a React functional component named App
 const App: React.FC = () => {
-  const [driver, setDriver] = useState<User[]>([{
-    name: "Loading",
-    phone: "111-111-1111",
+  const [driver, setDriver] = useState<User[]>([
+    {
+      name: "",
+      phone: "",
+      email: "",
+      attendance: "Yes",
+      hasCar: "No",
+      numberOfSeats: 0,
+      location: "Commons",
+      driver: "",
+      riders: [],
+    },
+  ]);
+  const [userInfo, setData] = useState<User>({
+    name: "",
+    phone: "",
     email: "",
-    attendance: "",
-    hasCar: "",
+    attendance: "Yes",
+    hasCar: "No",
     numberOfSeats: 0,
-    location: "",
+    location: "Commons",
     driver: "",
     riders: [],
-  }])
+  });
+  const { data: session, status } = useSession({ required: true });
 
-  const userEmail = "Rider1@example.com" // TODO: get this from session storage
   useEffect(() => {
-    fetchUserWithStatus(userEmail).then((response) => { 
-      if (response.status === 200) {
-        fetchUserWithStatus(response.data.driver).then((response) => {
-          if (response.status === 200) {
-            setDriver([response.data])
-          }
-        })   
-      }
-      // console.log(users)
-    });
-  }, []);
+    if (status === "authenticated") {
+      const userEmail = session?.user?.email ? session?.user.email : "";
+      fetchUserWithStatus(userEmail).then((response) => {
+        if (response.status === 200) {
+          setData(response.data);
+          //console.log(response.data);
+          fetchUserWithStatus(response.data.driver).then((response) => {
+            if (response.status === 200) {
+              setDriver([response.data]);
+            }
+          });
+        }
+        // console.log(users)
+      });
+    }
+  }, [status, session]);
 
+  if (status === "loading") {
+    return <div>Loading</div>;
+  }
 
-
-  const locations = ["commons", "kissam"]; // Get this from the backend
-  const location = locations[0]; // Temporary array to get rid of comparison error
+  //TODO change to const once test entries in database reset
+  let location = userInfo.location;
 
   // Define the selected image based on the location
   let selectedImage;
-  if (location === "kissam") {
+  if (location === "Kissam") {
     selectedImage = images.kissam;
-  } else if (location === "commons") {
+  } else if (location === "Commons") {
     selectedImage = images.commons;
-  } else if (location === "ebi") {
+  } else if (location === "EBI") {
     selectedImage = images.ebi;
-  } else if (location === "highland") {
+  } else if (location === "Highland") {
     selectedImage = images.highland;
-  } else if (location === "zeppos") {
+  } else if (location === "Zeppos") {
     selectedImage = images.zeppos;
+  }
+  //TODO delete this case once test entries in database reset, fixed issue with no default value for location
+  else if (location === "") {
+    selectedImage = images.commons;
+    location = "Commons";
   }
 
   return (
     <div className="app">
       <div className="header">
-      <Image src={logo} alt="Logo" className="logo" />
+        <Image src={logo} alt="Logo" className="logo" />
         <h1>Vandy Ice Hockey Carpool</h1>
         <div className="links">
           {/* link to edit form button */}

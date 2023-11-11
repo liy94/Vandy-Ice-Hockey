@@ -20,10 +20,10 @@ export default function RegistrationForm() {
     name: "",
     phone: "",
     email: "",
-    attendance: "",
-    hasCar: "",
+    attendance: "Yes",
+    hasCar: "No",
     numberOfSeats: 0,
-    location: "",
+    location: "Commons",
     driver: "",
     riders: [],
   });
@@ -86,7 +86,7 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
   const [attendance, setAttendance] = useState("Yes");
   const [car, setCar] = useState("No");
   const [seats, setSeats] = useState(0);
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("Commons");
 
   useEffect(() => {
     setName(preloaded.name);
@@ -113,6 +113,7 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
     e.preventDefault();
     createOrUpdateUser(newUser);
     console.log("form submitted");
+    console.log(location);
 
     // Redirect user to appropriate page depending on if they are a driver or rider or not going .
     if (attendance == "No") {
