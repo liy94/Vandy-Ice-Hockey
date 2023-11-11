@@ -1,0 +1,9 @@
+.loading {
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+  min-height: 100vh;
+  font-size: 48px;
+  font-weight: bold;
+  background-color: #fff;
+}

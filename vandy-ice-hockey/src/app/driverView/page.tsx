@@ -2,107 +2,131 @@
 
 import { useState, useEffect } from "react";
 import "./driver.css"; // Import the CSS file with the styles
+import "../loadingPage/loading.css";
 import Link from "next/link";
 import images from "../imageLoader";
 import Image from "next/image";
+import logo from "../img/logo.png";
 import { User } from "../../types/User";
-import { fetchUserWithStatus } from  "../../utils/apiUtils";
+import { fetchUserWithStatus } from "../../utils/apiUtils";
 import { fetchAndAdd } from "../../utils/driverViewUtils";
+import { useSession } from "next-auth/react";
 // Define a React functional component named App
 const App: React.FC = () => {
-  // Define user information (will fetch from database)
-  // const users = [
-  //   {
-  //     name: "User 1",
-  //     phone: "111-111-1111",
-  //     email: "ex@gmail.com",
-  //   },
-  //   {
-  //     name: "User 2",
-  //     phone: "111-111-1111",
-  //     email: "ex@gmail.com",
-  //   },
-  //   {
-  //     name: "User 3",
-  //     phone: "222-222-2222",
-  //     email: "ex@gmail.com",
-  //   },
-  // ];
-  const [riderEmails, setRiderEmails] = useState<string[]>([])
-  const [users, setUsers] = useState<User[]>([])
-  const userEmail = "jane.doe@example.com" // TODO: get this from session storage
-  useEffect(() => {
-    const fetchRiderEmails = async () => {
-      fetchUserWithStatus(userEmail).then((response : any) => { 
-        if (response.status === 200) {
-          setRiderEmails(response.data.riders);
-        }
-        else {
-          console.error('failed to fetch RiderIds')
-        }
-      });
-    }
-    fetchRiderEmails();
-  }, []);
+  const [riderEmails, setRiderEmails] = useState<string[]>([]);
+  const [users, setUsers] = useState<User[]>([
+    {
+      name: "",
+      phone: "",
+      email: "",
+      attendance: "Yes",
+      hasCar: "No",
+      numberOfSeats: 0,
+      location: "Commons",
+      driver: "",
+      riders: [],
+    },
+  ]);
+  const [userInfo, setData] = useState<User>({
+    name: "",
+    phone: "",
+    email: "",
+    attendance: "Yes",
+    hasCar: "No",
+    numberOfSeats: 0,
+    location: "Commons",
+    driver: "",
+    riders: [],
+  });
+  const { data: session, status } = useSession({ required: true });
 
   useEffect(() => {
-    if (riderEmails.length === 0) {
-      return;
+    if (status === "authenticated") {
+      const userEmail = session?.user?.email ? session?.user.email : "";
+      const fetchRiderEmails = async () => {
+        fetchUserWithStatus(userEmail).then((response: any) => {
+          if (response.status === 200) {
+            setRiderEmails(response.data.riders);
+            setData(response.data);
+          } else {
+            console.error("failed to fetch RiderIds");
+          }
+        });
+      };
+      fetchRiderEmails();
     }
-    const fetchRiders = async () => {
-      const riderFetchPromises = riderEmails.map(async (riderEmail) => {
-        const response = await fetchUserWithStatus(riderEmail);
-        const rider : User = await response.data;
-        return rider;
-      })
+  }, [status, session]);
 
-      const riders = await Promise.all(riderFetchPromises);
-      setUsers(riders);
+  useEffect(() => {
+    if (status === "authenticated") {
+      if (riderEmails.length === 0) {
+        return;
+      }
+      const fetchRiders = async () => {
+        const riderFetchPromises = riderEmails.map(async (riderEmail) => {
+          const response = await fetchUserWithStatus(riderEmail);
+          const rider: User = await response.data;
+          return rider;
+        });
+
+        const riders = await Promise.all(riderFetchPromises);
+        setUsers(riders);
+      };
+      fetchRiders();
     }
-    fetchRiders();
   }, [riderEmails]);
 
-  const locations = ["commons", "kissam"]; // Get this from the backend
-  const location = locations[1]; // Temporary array to get rid of comparison error
+  if (status === "loading") {
+    return <div className="loading">Loading...</div>;
+  }
+
+  //TODO change to const once test entries in database reset
+  let location = userInfo.location;
 
   // Define the selected image based on the location
   let selectedImage;
-  if (location === "kissam") {
+  if (location === "Kissam") {
     selectedImage = images.kissam;
-  } else if (location === "commons") {
+  } else if (location === "Commons") {
     selectedImage = images.commons;
-  } else if (location == "ebi") {
+  } else if (location == "EBI") {
     selectedImage = images.ebi;
-  } else if (location == "highland") {
+  } else if (location == "Highland") {
     selectedImage = images.highland;
-  } else if (location == "zeppos") {
+  } else if (location == "Zeppos") {
     selectedImage = images.zeppos;
+  }
+  //TODO delete this case once test entries in database reset, fixed issue with no default value for location
+  else if (location === "") {
+    selectedImage = images.commons;
+    location = "Commons";
   }
 
   return (
     <div className="app">
       <div className="header">
-        <h1>Hello, USER</h1>
+        <Image src={logo} alt="Logo" className="logo" />
+        <h1>Vandy Ice Hockey Carpool</h1>
         <div className="links">
-    <Link
-      href="/registrationForm"
-      className="link-card" // Use the new class
-      target="_self"
-      rel="noopener noreferrer"
-    >
-      Edit Form
-    </Link>
+          <Link
+            href="/registrationForm"
+            className="link-card" // Use the new class
+            target="_self"
+            rel="noopener noreferrer"
+          >
+            Edit Form
+          </Link>
 
-    <Link
-      href="/responsesView"
-      className="link-card" // Use the new class
-      target="_self"
-      rel="noopener noreferrer"
-    >
-      All Responses
-    </Link>
-  </div>
-</div>
+          <Link
+            href="/responsesView"
+            className="link-card" // Use the new class
+            target="_self"
+            rel="noopener noreferrer"
+          >
+            All Responses
+          </Link>
+        </div>
+      </div>
       <div className="container">
         <div className="left-half">
           {/* User information content */}

@@ -1,27 +1,85 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "../page.module.css";
+import "../loadingPage/loading.css";
 import { useRouter } from "next/navigation";
-// import { createUser,  } from "../../utils/apiUtils";
+import { User } from "../../types/User";
+import { useSession } from "next-auth/react";
+import { fetchUserWithStatus } from "../../utils/apiUtils";
+import Link from "next/link"; // Import Link from Next.js
+import vandyLogo from "../img/logo.png";
+import Image from "next/image";
 import { createOrUpdateUser } from "../../utils/registrationFormUtils";
-import { User } from '../../types/User'
 
+interface preloadedUser {
+  preloaded: User;
+}
 
 export default function RegistrationForm() {
+  const [userInfo, setData] = useState<User>({
+    name: "",
+    phone: "",
+    email: "",
+    attendance: "Yes",
+    hasCar: "No",
+    numberOfSeats: 0,
+    location: "Commons",
+    driver: "",
+    riders: [],
+  });
+  const { data: session, status } = useSession({ required: true });
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      const userEmail = session?.user?.email ? session?.user.email : "";
+      fetchUserWithStatus(userEmail).then((response) => {
+        if (response.status === 200) {
+          setData(response.data);
+        }
+        //console.log(response.data);
+      });
+    }
+  }, [status, session]);
+
+  if (status === "loading") {
+    return <div className="loading">Loading...</div>;
+  }
+
   return (
-    <main className={styles.main}>
+    <main>
+      <div className={styles.header}>
+        <Image src={vandyLogo} alt="Logo" className={styles.vandyLogo} />
+        <h1>Vandy Ice Hockey Carpool</h1>
+        <div className="links">
+          <Link
+            href="/registrationForm"
+            className={styles.linkCard}
+            target="_self"
+            rel="noopener noreferrer"
+          >
+            Edit Form
+          </Link>
+
+          <Link
+            href="/responsesView"
+            className={styles.linkCard}
+            target="_self"
+            rel="noopener noreferrer"
+          >
+            All Responses
+          </Link>
+        </div>
+      </div>
+
       <h1>Registration</h1>
-      <Form />
+      <Form preloaded={userInfo} />
     </main>
   );
 }
 
-function Form() {
+const Form: React.FC<preloadedUser> = ({ preloaded }) => {
   const router = useRouter();
-
-  //Todo try to fetch their data from the database, if they've filled out the form before
-  //fill in with their existing values
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -29,12 +87,20 @@ function Form() {
   const [attendance, setAttendance] = useState("Yes");
   const [car, setCar] = useState("No");
   const [seats, setSeats] = useState(0);
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("Commons");
 
-
+  useEffect(() => {
+    setName(preloaded.name);
+    setEmail(preloaded.email);
+    setPhone(preloaded.phone);
+    setAttendance(preloaded.attendance);
+    setCar(preloaded.hasCar);
+    setSeats(preloaded.numberOfSeats);
+    setLocation(preloaded.location);
+  }, [preloaded]);
 
   const submitHandler = (e: any) => {
-    const newUser : User = {
+    const newUser: User = {
       name: name,
       email: email,
       phone: phone,
@@ -44,13 +110,17 @@ function Form() {
       location: location,
       driver: "",
       riders: [],
-    }
+    };
     e.preventDefault();
     createOrUpdateUser(newUser);
     console.log("form submitted");
+    console.log(location);
 
-    // Redirect user to appropriate page depending on if they are a driver or rider.
-    if (car === "Yes") {
+    // Redirect user to appropriate page depending on if they are a driver or rider or not going .
+    if (attendance == "No") {
+      router.push("/notComing");
+      console.log("attendance is no");
+    } else if (car === "Yes") {
       router.push("/driverView");
     } else {
       router.push("/riderView");
@@ -183,4 +253,4 @@ function Form() {
       <button className={styles.submitButton}>Submit</button>
     </form>
   );
-}
+};
