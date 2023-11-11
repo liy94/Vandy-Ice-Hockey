@@ -1,26 +1,57 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "../page.module.css";
 import { useRouter } from "next/navigation";
 import { createUser } from "../../utils/apiUtils";
-import { User } from '../../types/User'
+import { User } from "../../types/User";
+import { useSession } from "next-auth/react";
+import { fetchUserWithStatus } from "../../utils/apiUtils";
 
+interface preloadedUser {
+  preloaded: User;
+}
 
 export default function RegistrationForm() {
+  const [userInfo, setData] = useState<User>({
+    name: "",
+    phone: "",
+    email: "",
+    attendance: "",
+    hasCar: "",
+    numberOfSeats: 0,
+    location: "",
+    driver: "",
+    riders: [],
+  });
+  const { data: session, status } = useSession({ required: true });
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      const userEmail = session?.user?.email ? session?.user.email : "";
+      fetchUserWithStatus(userEmail).then((response) => {
+        if (response.status === 200) {
+          setData(response.data);
+        }
+        //console.log(response.data);
+      });
+    }
+  }, [status, session]);
+
+  if (status === "loading") {
+    return <div>Loading</div>;
+  }
+
   return (
     <main className={styles.main}>
       <h1>Registration</h1>
-      <Form />
+      <Form preloaded={userInfo} />
     </main>
   );
 }
 
-function Form() {
+const Form: React.FC<preloadedUser> = ({ preloaded }) => {
   const router = useRouter();
-
-  //Todo try to fetch their data from the database, if they've filled out the form before
-  //fill in with their existing values
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -30,8 +61,18 @@ function Form() {
   const [seats, setSeats] = useState(0);
   const [location, setLocation] = useState("");
 
+  useEffect(() => {
+    setName(preloaded.name);
+    setEmail(preloaded.email);
+    setPhone(preloaded.phone);
+    setAttendance(preloaded.attendance);
+    setCar(preloaded.hasCar);
+    setSeats(preloaded.numberOfSeats);
+    setLocation(preloaded.location);
+  }, [preloaded]);
+
   const submitHandler = (e: any) => {
-    const newUser : User = {
+    const newUser: User = {
       name: name,
       email: email,
       phone: phone,
@@ -41,7 +82,7 @@ function Form() {
       location: location,
       driver: "",
       riders: [],
-    }
+    };
     e.preventDefault();
     createUser(newUser);
     console.log("form submitted");
@@ -180,4 +221,4 @@ function Form() {
       <button className={styles.submitButton}>Submit</button>
     </form>
   );
-}
+};
