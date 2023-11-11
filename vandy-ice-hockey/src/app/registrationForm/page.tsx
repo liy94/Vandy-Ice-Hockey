@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import styles from "../page.module.css";
+import "../loadingPage/loading.css";
 import { useRouter } from "next/navigation";
 import { User } from "../../types/User";
 import { useSession } from "next-auth/react";
@@ -42,7 +43,7 @@ export default function RegistrationForm() {
   }, [status, session]);
 
   if (status === "loading") {
-    return <div>Loading</div>;
+    return <div className="loading">Loading...</div>;
   }
 
   return (

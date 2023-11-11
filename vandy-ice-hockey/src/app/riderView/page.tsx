@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import "./rider.css"; // Import the CSS file with the styles
+import "../loadingPage/loading.css";
 import Link from "next/link";
 import images from "../imageLoader";
 import Image from "next/image";
@@ -57,7 +58,7 @@ const App: React.FC = () => {
   }, [status, session]);
 
   if (status === "loading") {
-    return <div>Loading</div>;
+    return <div className="loading">Loading...</div>;
   }
 
   //TODO change to const once test entries in database reset

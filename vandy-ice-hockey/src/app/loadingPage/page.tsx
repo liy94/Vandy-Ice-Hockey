@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { checkIfUserExists } from "@/utils/loadingPage";
+import "./loading.css";
 
 const loadingPage = () => {
   const router = useRouter();
@@ -27,7 +28,7 @@ const loadingPage = () => {
     }
   }, []);
 
-  return <div>Loading...</div>;
+  return <div className="loading">Loading...</div>;
 };
 
 export default loadingPage;
