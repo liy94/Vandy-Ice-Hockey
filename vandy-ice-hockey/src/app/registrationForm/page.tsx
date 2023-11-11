@@ -3,10 +3,13 @@
 import { useState, useEffect } from "react";
 import styles from "../page.module.css";
 import { useRouter } from "next/navigation";
-import { createUser } from "../../utils/apiUtils";
 import { User } from "../../types/User";
 import { useSession } from "next-auth/react";
 import { fetchUserWithStatus } from "../../utils/apiUtils";
+import Link from "next/link"; // Import Link from Next.js
+import vandyLogo from "../img/logo.png";
+import Image from "next/image";
+import { createOrUpdateUser } from "../../utils/registrationFormUtils";
 
 interface preloadedUser {
   preloaded: User;
@@ -43,7 +46,31 @@ export default function RegistrationForm() {
   }
 
   return (
-    <main className={styles.main}>
+    <main>
+      <div className={styles.header}>
+        <Image src={vandyLogo} alt="Logo" className={styles.vandyLogo} />
+        <h1>Vandy Ice Hockey Carpool</h1>
+        <div className="links">
+          <Link
+            href="/registrationForm"
+            className={styles.linkCard}
+            target="_self"
+            rel="noopener noreferrer"
+          >
+            Edit Form
+          </Link>
+
+          <Link
+            href="/responsesView"
+            className={styles.linkCard}
+            target="_self"
+            rel="noopener noreferrer"
+          >
+            All Responses
+          </Link>
+        </div>
+      </div>
+
       <h1>Registration</h1>
       <Form preloaded={userInfo} />
     </main>
@@ -84,11 +111,14 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
       riders: [],
     };
     e.preventDefault();
-    createUser(newUser);
+    createOrUpdateUser(newUser);
     console.log("form submitted");
 
-    // Redirect user to appropriate page depending on if they are a driver or rider.
-    if (car === "Yes") {
+    // Redirect user to appropriate page depending on if they are a driver or rider or not going .
+    if (attendance == "No") {
+      router.push("/notComing");
+      console.log("attendance is no");
+    } else if (car === "Yes") {
       router.push("/driverView");
     } else {
       router.push("/riderView");
