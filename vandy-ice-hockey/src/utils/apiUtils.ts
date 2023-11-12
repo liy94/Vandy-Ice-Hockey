@@ -68,6 +68,65 @@ export async function updateUser(userData: User) {
   }
 }
 
+export async function resetUsers() {
+  try {
+    const response = await fetch(`${serverUrl}/reset/users`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('Success:', data);
+    return data; // This contains the new user's insertedId if needed
+  } catch (error) {
+    console.error('Error:', error);
+    throw error; // Rethrowing the error to handle it where the function is called
+  }
+}
+
+export async function changeDriver(email: string, newDriverEmail : string) {
+  try {
+    fetchUserWithStatus(email).then((response) => {
+      if (response.status === 200) {
+        let user = response.data;
+        user.driver = newDriverEmail;
+        updateUser(user);
+      }
+      else if (response.status === 404) {
+        console.error('Error: User not found');
+        throw new Error('User to update driver of not found');
+      }
+    })
+  } catch (error) {
+    console.error('Error:', error);
+    throw error; // Rethrowing the error to handle it where the function is called
+  }
+}
+
+export async function addRider(email: string, newRiderEmail : string) {
+  try {
+    fetchUserWithStatus(email).then((response) => {
+      if (response.status === 200) {
+        let user = response.data;
+        user.riders.push(newRiderEmail);
+        updateUser(user);
+      }
+      else if (response.status === 404) {
+        console.error('Error: User not found');
+        throw new Error('User to update driver of not found');
+      }
+    })
+  } catch (error) {
+    console.error('Error:', error);
+    throw error; // Rethrowing the error to handle it where the function is called
+  }
+}
 
 export async function createUser(userData: User) {
   try {

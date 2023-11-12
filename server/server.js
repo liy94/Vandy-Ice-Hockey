@@ -116,6 +116,18 @@ app.get('/users/email/:email', async (req, res) => {
 });
 
 
+// reset all users' driver and rider fields to an empty string for driver and empty array for riders
+app.put('/reset/users', async (req, res) => {
+    try {
+        const updatedUser = await collection.updateMany({}, { $set: { driver: "", riders: [] } });
+        if (!updatedUser) return res.status(404).send('User not found');
+        res.status(200).json({ message: "Document updated successfully", data: updatedUser });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 // GET /users
 // This endpoint retrieves data about all users from the Users collection.
 // Response:
@@ -130,6 +142,7 @@ app.get('/users', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
 
 // POST /users
 // This endpoint creates a new user in the Users collection.
