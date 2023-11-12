@@ -94,8 +94,10 @@ export async function changeDriver(email: string, newDriverEmail : string) {
   try {
     fetchUserWithStatus(email).then((response) => {
       if (response.status === 200) {
-        let user = response.data;
+        let user : User = response.data;
+        
         user.driver = newDriverEmail;
+        console.log(user)
         updateUser(user);
       }
       else if (response.status === 404) {
@@ -113,7 +115,8 @@ export async function addRider(email: string, newRiderEmail : string) {
   try {
     fetchUserWithStatus(email).then((response) => {
       if (response.status === 200) {
-        let user = response.data;
+        let user : User = response.data;
+        console.log(user)
         user.riders.push(newRiderEmail);
         updateUser(user);
       }
