@@ -150,3 +150,25 @@ export async function createUser(userData: User) {
     throw error; // Rethrowing the error to handle it where the function is called
   }
 }
+
+export async function deleteUser(email: String) {
+  try {
+    const response = await fetch(`${serverUrl}/users/email/${email}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('Success:', data);
+    return data; // This contains the new user's insertedId if needed
+  } catch (error) {
+    console.error('Error:', error);
+    throw error; // Rethrowing the error to handle it where the function is called
+  }
+}

@@ -162,6 +162,26 @@ app.post('/users', async (req, res) => {
     }
 });
 
+// DELETE /users/emails/:email
+// This endpoint deletes a user from the Users collection by email
+app.delete('/users/emails/:email', async (req, res) => {
+    try {
+        const userEmail = req.params.email;
+        // Validate the email address
+        // You can use a more robust validation method as required for your use case
+        if (!userEmail || !/^\S+@\S+\.\S+$/.test(userEmail)) {
+            return res.status(400).send('Invalid email address');
+        }
+        const deletedUser = await collection.deleteOne({ email: userEmail });
+        if (!deletedUser) return res.status(404).send('User not found');
+        res.status(200).json({ message: "Document deleted successfully", data: deletedUser });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
