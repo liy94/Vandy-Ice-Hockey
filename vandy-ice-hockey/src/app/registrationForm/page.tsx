@@ -134,14 +134,7 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
     console.log(location);
 
     // Redirect user to appropriate page depending on if they are a driver or rider or not going .
-    if (attendance == "No") {
-      router.push("/notComing");
-      console.log("attendance is no");
-    } else if (car === "Yes") {
-      router.push("/driverView");
-    } else {
-      router.push("/riderView");
-    }
+    router.push("/loadingPage")
   };
 
   const getComingWednesday = () => {
