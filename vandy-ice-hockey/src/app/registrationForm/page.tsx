@@ -144,6 +144,17 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
     }
   };
 
+  const getComingWednesday = () => {
+    const today = new Date();
+    const todayDayOfWeek = today.getDay();
+    const daysUntilWednesday = (3 - todayDayOfWeek + 7) % 7;
+    const nextWednesday = new Date(today);
+    nextWednesday.setDate(today.getDate() + daysUntilWednesday);
+    return nextWednesday.toLocaleDateString(); // Format date as a string
+  };
+
+  const nextPracticeDate = getComingWednesday();
+
   return (
     <form className={styles.registration} onSubmit={submitHandler}>
       <label className={styles.formLabel}>Name:</label>
@@ -171,7 +182,7 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
         onChange={(e) => setPhone(e.target.value)}
       ></input>
 
-      <label className={styles.formLabel}>Are you coming to practice?</label>
+      <label className={styles.formLabel}>Attending practice on {nextPracticeDate}?</label>
       <div className={styles.formLabel}>
         <input
           type="radio"
