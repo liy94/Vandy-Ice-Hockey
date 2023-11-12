@@ -9,12 +9,6 @@ const handler = NextAuth({
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
-  callbacks: {
-    async redirect({ url, baseUrl }) {
-      // Redirect to the '/loadingPage' page after successful sign-in
-      return `${baseUrl}/loadingPage`;
-    }
-  }
 });
 
 export { handler as GET, handler as POST };

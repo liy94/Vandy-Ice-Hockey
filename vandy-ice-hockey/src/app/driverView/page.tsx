@@ -10,7 +10,7 @@ import logo from "../img/logo.png";
 import { User } from "../../types/User";
 import { fetchUserWithStatus } from "../../utils/apiUtils";
 import { fetchAndAdd } from "../../utils/driverViewUtils";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 // Define a React functional component named App
 const App: React.FC = () => {
   const [riderEmails, setRiderEmails] = useState<string[]>([]);
@@ -109,12 +109,12 @@ const App: React.FC = () => {
         <h1>Vandy Ice Hockey Carpool</h1>
         <div className="links">
           <Link
-            href="/registrationForm"
+            href="/loadingPage"
             className="link-card" // Use the new class
             target="_self"
             rel="noopener noreferrer"
           >
-            Edit Form
+            Home
           </Link>
 
           <Link
@@ -125,6 +125,22 @@ const App: React.FC = () => {
           >
             All Responses
           </Link>
+
+          <Link
+            href="/registrationForm"
+            className="link-card" // Use the new class
+            target="_self"
+            rel="noopener noreferrer"
+          >
+            Update Profile
+          </Link>
+
+          <button
+            onClick={() => signOut({ callbackUrl: "/" })}
+            className="link-card"
+          >
+            Sign Out
+          </button>
         </div>
       </div>
       <div className="container">

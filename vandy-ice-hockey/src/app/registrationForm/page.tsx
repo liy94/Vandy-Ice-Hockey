@@ -11,6 +11,7 @@ import Link from "next/link"; // Import Link from Next.js
 import vandyLogo from "../img/logo.png";
 import Image from "next/image";
 import { createOrUpdateUser } from "../../utils/registrationFormUtils";
+import { signOut } from "next-auth/react";
 
 interface preloadedUser {
   preloaded: User;
@@ -53,22 +54,38 @@ export default function RegistrationForm() {
         <h1>Vandy Ice Hockey Carpool</h1>
         <div className="links">
           <Link
-            href="/registrationForm"
-            className={styles.linkCard}
+            href="/loadingPage"
+            className="link-card" // Use the new class
             target="_self"
             rel="noopener noreferrer"
           >
-            Edit Form
+            Home
           </Link>
 
           <Link
             href="/responsesView"
-            className={styles.linkCard}
+            className="link-card" // Use the new class
             target="_self"
             rel="noopener noreferrer"
           >
             All Responses
           </Link>
+
+          <Link
+            href="/registrationForm"
+            className="link-card" // Use the new class
+            target="_self"
+            rel="noopener noreferrer"
+          >
+            Update Profile
+          </Link>
+
+          <button
+            onClick={() => signOut({ callbackUrl: "/" })}
+            className="link-card"
+          >
+            Sign Out
+          </button>
         </div>
       </div>
 
@@ -127,6 +144,17 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
     }
   };
 
+  const getComingWednesday = () => {
+    const today = new Date();
+    const todayDayOfWeek = today.getDay();
+    const daysUntilWednesday = (3 - todayDayOfWeek + 7) % 7;
+    const nextWednesday = new Date(today);
+    nextWednesday.setDate(today.getDate() + daysUntilWednesday);
+    return nextWednesday.toLocaleDateString(); // Format date as a string
+  };
+
+  const nextPracticeDate = getComingWednesday();
+
   return (
     <form className={styles.registration} onSubmit={submitHandler}>
       <label className={styles.formLabel}>Name:</label>
@@ -154,7 +182,7 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
         onChange={(e) => setPhone(e.target.value)}
       ></input>
 
-      <label className={styles.formLabel}>Are you coming to practice?</label>
+      <label className={styles.formLabel}>Attending practice on {nextPracticeDate}?</label>
       <div className={styles.formLabel}>
         <input
           type="radio"

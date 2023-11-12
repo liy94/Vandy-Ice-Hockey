@@ -9,7 +9,7 @@ import Image from "next/image";
 import logo from "../img/logo.png";
 import { User } from "../../types/User";
 import { fetchUserWithStatus } from "../../utils/apiUtils";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 // Define a React functional component named App
 const App: React.FC = () => {
@@ -89,24 +89,39 @@ const App: React.FC = () => {
         <Image src={logo} alt="Logo" className="logo" />
         <h1>Vandy Ice Hockey Carpool</h1>
         <div className="links">
-          {/* link to edit form button */}
           <Link
-            href="/registrationForm"
-            className="card"
+            href="/loadingPage"
+            className="link-card" // Use the new class
             target="_self"
             rel="noopener noreferrer"
           >
-            Edit Form
+            Home
           </Link>
-          {/* Link to all responses button */}
+
           <Link
             href="/responsesView"
-            className="card"
+            className="link-card" // Use the new class
             target="_self"
             rel="noopener noreferrer"
           >
             All Responses
           </Link>
+
+          <Link
+            href="/registrationForm"
+            className="link-card" // Use the new class
+            target="_self"
+            rel="noopener noreferrer"
+          >
+            Update Profile
+          </Link>
+
+          <button
+            onClick={() => signOut({ callbackUrl: "/" })}
+            className="link-card"
+          >
+            Sign Out
+          </button>
         </div>
       </div>
       <div className="container">
