@@ -132,7 +132,7 @@ const App: React.FC = () => {
             target="_self"
             rel="noopener noreferrer"
           >
-            Edit Form
+            Update Profile
           </Link>
 
           <button

@@ -77,7 +77,7 @@ export default function RegistrationForm() {
             target="_self"
             rel="noopener noreferrer"
           >
-            Edit Form
+            Update Profile
           </Link>
 
           <button
