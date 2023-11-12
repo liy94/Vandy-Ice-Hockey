@@ -84,6 +84,32 @@ app.put('/users/email/:email', async (req, res) => {
     }
 });
 
+// to atomically write a new rider to a driver's rider array
+app.put('/users/email/:email/addRider', async (req, res) => {
+    try {
+        const userEmail = req.params.email;
+        const newRiderEmail = req.body.newRiderEmail;
+
+        if (!userEmail || !/^\S+@\S+\.\S+$/.test(userEmail)) {
+            return res.status(400).send('Invalid email address');
+        }
+        if (!newRiderEmail || !/^\S+@\S+\.\S+$/.test(newRiderEmail)) {
+            return res.status(400).send('Invalid email address');
+        }
+
+        const updateResult = await collection.findOneAndUpdate(
+            { email: userEmail },
+            { $push: { riders: newRiderEmail } },
+            { returnDocument: 'after' } // Optional
+        );
+        res.status(200).json({ message: "Rider added successfully", data: updateResult.value });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
 
 
 // GET /users/email/:email

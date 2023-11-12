@@ -117,8 +117,8 @@ export async function addRider(email: string, newRiderEmail : string) {
       if (response.status === 200) {
         let user = response.data;
         delete user._id;
-        console.log(user)
         user.riders.push(newRiderEmail);
+        console.log(user)
         updateUser(user);
       }
       else if (response.status === 404) {
@@ -129,6 +129,29 @@ export async function addRider(email: string, newRiderEmail : string) {
   } catch (error) {
     console.error('Error:', error);
     throw error; // Rethrowing the error to handle it where the function is called
+  }
+}
+
+export async function addRiderToUser(email: string, newRiderEmail: string) {
+  try {
+      const response = await fetch(`${serverUrl}/users/email/${email}/addRider`, {
+          method: 'PUT',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ newRiderEmail }),
+      });
+
+      if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      // console.log('Success:', data);
+      return data;
+  } catch (error) {
+      // console.error('Error:', error);
+      throw error;
   }
 }
 
