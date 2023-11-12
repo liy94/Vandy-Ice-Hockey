@@ -116,7 +116,7 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
     setLocation(preloaded.location);
   }, [preloaded]);
 
-  const submitHandler = (e: any) => {
+  const submitHandler = async (e: any) => {
     const newUser: User = {
       name: name,
       email: email,
@@ -129,7 +129,7 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
       riders: [],
     };
     e.preventDefault();
-    createOrUpdateUser(newUser);
+    await createOrUpdateUser(newUser);
     console.log("form submitted");
     console.log(location);
 
