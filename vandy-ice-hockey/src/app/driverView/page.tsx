@@ -10,7 +10,7 @@ import logo from "../img/logo.png";
 import { User } from "../../types/User";
 import { fetchUserWithStatus } from "../../utils/apiUtils";
 import { fetchAndAdd } from "../../utils/driverViewUtils";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 // Define a React functional component named App
 const App: React.FC = () => {
   const [riderEmails, setRiderEmails] = useState<string[]>([]);
@@ -116,7 +116,12 @@ const App: React.FC = () => {
           >
             Edit Form
           </Link>
-
+          <button
+            onClick={() => signOut({ callbackUrl: "/" })}
+            className="link-card"
+          >
+            Sign Out
+          </button>
           <Link
             href="/responsesView"
             className="link-card" // Use the new class

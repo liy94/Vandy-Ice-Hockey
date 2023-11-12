@@ -9,7 +9,7 @@ import Image from "next/image";
 import logo from "../img/logo.png";
 import { User } from "../../types/User";
 import { fetchUserWithStatus } from "../../utils/apiUtils";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 // Define a React functional component named App
 const App: React.FC = () => {
@@ -107,6 +107,13 @@ const App: React.FC = () => {
           >
             All Responses
           </Link>
+
+          <button
+            onClick={() => signOut({ callbackUrl: "/" })}
+            className="link-card"
+          >
+            Sign Out
+          </button>
         </div>
       </div>
       <div className="container">
