@@ -55,6 +55,10 @@
 
   .registration {
     text-align: center;
+    max-width: 600px; /* Set a maximum width for the form */
+    margin: 0 auto; /* Center the form horizontally */
+    padding: 20px; /* Add some padding to the form */
+    box-sizing: border-box; /* Include padding and border in the total width/height */
   }
 
   .formLabel {
