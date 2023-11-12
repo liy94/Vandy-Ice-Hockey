@@ -1,17 +1,73 @@
+"use client";
+import { useState, useEffect } from "react";
+import {
+  fetchAllUsersWithStatus,
+  resetUsers,
+  changeDriver,
+  addRider,
+} from "./apiUtils";
+import { User } from "@/types/User";
+
 export interface Location {
   name: string;
   numRiders: number;
 }
 
 export interface Passenger {
-  id: string;
+  id: string; //email
   location: string;
 }
 
 export interface Driver {
-  id: string;
+  id: string; //email
   location: string;
   availableSeats: number;
+}
+
+export default function runAlgorithm() {
+  let allUsers: User[] = [];
+  let attendingUsers: User[] = [];
+  let riders: Passenger[] = [];
+  let drivers: Driver[] = [];
+
+  const fetchUsers = async () => {
+    await resetUsers();
+    await fetchAllUsersWithStatus().then((response) => {
+      if (response.status === 200) {
+        allUsers = response.data;
+      }
+    });
+
+    allUsers.forEach((user) => {
+      if (user.attendance === "Yes") {
+        attendingUsers.push(user);
+      }
+    });
+
+    if (attendingUsers.length !== 0) {
+      attendingUsers.forEach((user) => {
+        if (user.hasCar === "No") {
+          let rider: Passenger = { id: user.email, location: user.location };
+          riders.push(rider);
+        } else {
+          let driver: Driver = {
+            id: user.email,
+            location: user.location,
+            availableSeats: user.numberOfSeats,
+          };
+          drivers.push(driver);
+        }
+      });
+
+      const pairs = pairDriversAndRiders(riders, drivers);
+
+      pairs.forEach((pair) => {
+        changeDriver(pair[1].id, pair[0].id);
+        addRider(pair[0].id, pair[1].id);
+      });
+    }
+  };
+  fetchUsers();
 }
 
 export function pairDriversAndRiders(

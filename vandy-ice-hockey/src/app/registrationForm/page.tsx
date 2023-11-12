@@ -12,6 +12,7 @@ import vandyLogo from "../img/logo.png";
 import Image from "next/image";
 import { createOrUpdateUser } from "../../utils/registrationFormUtils";
 import { signOut } from "next-auth/react";
+import runAlgorithm from "@/utils/carpoolManager";
 
 interface preloadedUser {
   preloaded: User;
@@ -89,7 +90,7 @@ export default function RegistrationForm() {
         </div>
       </div>
 
-      <h1>Registration</h1>
+      <h1>Profile</h1>
       <Form preloaded={userInfo} />
     </main>
   );
@@ -130,8 +131,8 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
     };
     e.preventDefault();
     createOrUpdateUser(newUser);
+    runAlgorithm();
     console.log("form submitted");
-    console.log(location);
 
     // Redirect user to appropriate page depending on if they are a driver or rider or not going .
     if (attendance == "No") {
@@ -182,7 +183,9 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
         onChange={(e) => setPhone(e.target.value)}
       ></input>
 
-      <label className={styles.formLabel}>Attending practice on {nextPracticeDate}?</label>
+      <label className={styles.formLabel}>
+        Attending practice on {nextPracticeDate}?
+      </label>
       <div className={styles.formLabel}>
         <input
           type="radio"
