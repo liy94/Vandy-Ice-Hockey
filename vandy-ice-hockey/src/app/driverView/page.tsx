@@ -109,19 +109,14 @@ const App: React.FC = () => {
         <h1>Vandy Ice Hockey Carpool</h1>
         <div className="links">
           <Link
-            href="/registrationForm"
+            href="/loadingPage"
             className="link-card" // Use the new class
             target="_self"
             rel="noopener noreferrer"
           >
-            Edit Form
+            Home
           </Link>
-          <button
-            onClick={() => signOut({ callbackUrl: "/" })}
-            className="link-card"
-          >
-            Sign Out
-          </button>
+
           <Link
             href="/responsesView"
             className="link-card" // Use the new class
@@ -130,6 +125,22 @@ const App: React.FC = () => {
           >
             All Responses
           </Link>
+
+          <Link
+            href="/registrationForm"
+            className="link-card" // Use the new class
+            target="_self"
+            rel="noopener noreferrer"
+          >
+            Edit Form
+          </Link>
+
+          <button
+            onClick={() => signOut({ callbackUrl: "/" })}
+            className="link-card"
+          >
+            Sign Out
+          </button>
         </div>
       </div>
       <div className="container">

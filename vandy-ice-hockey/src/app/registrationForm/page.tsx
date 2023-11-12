@@ -11,6 +11,7 @@ import Link from "next/link"; // Import Link from Next.js
 import vandyLogo from "../img/logo.png";
 import Image from "next/image";
 import { createOrUpdateUser } from "../../utils/registrationFormUtils";
+import { signOut } from "next-auth/react";
 
 interface preloadedUser {
   preloaded: User;
@@ -53,22 +54,38 @@ export default function RegistrationForm() {
         <h1>Vandy Ice Hockey Carpool</h1>
         <div className="links">
           <Link
+            href="/loadingPage"
+            className="link-card" // Use the new class
+            target="_self"
+            rel="noopener noreferrer"
+          >
+            Home
+          </Link>
+
+          <Link
+            href="/responsesView"
+            className="link-card" // Use the new class
+            target="_self"
+            rel="noopener noreferrer"
+          >
+            All Responses
+          </Link>
+
+          <Link
             href="/registrationForm"
-            className={styles.linkCard}
+            className="link-card" // Use the new class
             target="_self"
             rel="noopener noreferrer"
           >
             Edit Form
           </Link>
 
-          <Link
-            href="/responsesView"
-            className={styles.linkCard}
-            target="_self"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => signOut({ callbackUrl: "/" })}
+            className="link-card"
           >
-            All Responses
-          </Link>
+            Sign Out
+          </button>
         </div>
       </div>
 
