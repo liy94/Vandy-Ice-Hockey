@@ -117,7 +117,7 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
     setLocation(preloaded.location);
   }, [preloaded]);
 
-  const submitHandler = (e: any) => {
+  const submitHandler = async (e: any) => {
     const newUser: User = {
       name: name,
       email: email,
@@ -130,19 +130,12 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
       riders: [],
     };
     e.preventDefault();
-    createOrUpdateUser(newUser);
     runAlgorithm();
+    await createOrUpdateUser(newUser);
     console.log("form submitted");
 
     // Redirect user to appropriate page depending on if they are a driver or rider or not going .
-    if (attendance == "No") {
-      router.push("/notComing");
-      console.log("attendance is no");
-    } else if (car === "Yes") {
-      router.push("/driverView");
-    } else {
-      router.push("/riderView");
-    }
+    router.push("/loadingPage");
   };
 
   const getComingWednesday = () => {

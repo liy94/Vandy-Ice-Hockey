@@ -13,13 +13,21 @@ const loadingPage = () => {
   useEffect(() => {
     if (status === "authenticated") {
       const email = session?.user?.email ? session?.user.email : "";
-      let dataExists;
+      let user;
 
       const fetchUser = async () => {
-        dataExists = await checkIfUserExists(email);
-
-        if (dataExists) {
-          router.push("/driverView");
+        user = await checkIfUserExists(email);
+        console.log("user:", user);
+        if (user) {
+          if (user.attendance === "Yes") {
+            if (user.hasCar === "Yes") {
+              router.push("/driverView");
+            } else {
+              router.push("/riderView");
+            }
+          } else {
+            router.push("/notComing");
+          }
         } else {
           router.push("/registrationForm");
         }

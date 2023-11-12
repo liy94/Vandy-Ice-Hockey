@@ -5,7 +5,7 @@ export function checkIfUserExists(userEmail: string) {
     if (response.status === 200) {
       const user = response.data;
       if (user) {
-        return true;
+        return user;
       }
     }
     return false;
