@@ -1,41 +1,121 @@
 /* Header Styles */
-.header {
+.header, .title-header {
   background-color: #333;
   padding: 1rem;
   display: flex;
-  align-items: center;
-  margin: 0 auto;
-  justify-content: space-between;
+  flex-direction: row; /* Stack header elements horizontally */
+  align-items: center; /* Center header items vertically */
+  justify-content: space-between; /* Spread elements apart horizontally */
   text-align: center;
-  width: 100%; /* Add this to ensure full width */
+  width: 100%;
+}
+
+.header h1, .title-header h1 {
+  color: #cfae73;
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 0;
 }
 
 /* Add a CSS class for the logo */
 .logo {
-  /* Position the logo in the left corner */
-  margin-right: auto;
-  width: 100px; /* Adjust the width as needed */
-  height: auto; /* Maintain aspect ratio */
+  width: 150px;
+  height: auto;
 }
 
-.header h1 {
-  color: #cfae73;
-  font-size: 1.5rem;
-  margin: 0;
-  flex-grow: 1; /* Allow the h1 to take available space and center-align it */
+/* Add a CSS class for the title-header */
+.title-header {
+  display: flex;
+  flex-direction: row; /* Stack title-header elements horizontally */
+  align-items: center; /* Center title-header items vertically */
+  justify-content: center; /* Center title-header items horizontally */
+  flex: 1; /* Take up available space equally */
 }
 
+/* 2x2 Grid Styles */
+.link-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto); /* Change to 'auto' for narrower buttons */
+  grid-template-rows: repeat(2, auto);
+  gap: 5px; /* Reduce the margin between buttons */
+  margin-top: 10px; /* Adjust the margin as needed */
+}
 
-  .link-card {
-    margin: 6px; /* Add space around the link-card */
-    padding: 10px;
-    cursor: pointer;
-    font-size: smaller; /* Adjust the font size to match the card elements */
-    border-radius: var(--border-radius);
-    background: rgba(var(--card-rgb), 1);
-    border: 1px solid rgba(var(--card-rgb), 1);
-    transition: background 200ms, border 200ms;
+.link-card {
+  margin: 6px; /* Add space around the link-card */
+  padding: 8px; /* Reduce padding for narrower buttons */
+  cursor: pointer;
+  font-size: smaller; /* Adjust the font size to match the card elements */
+  border-radius: var(--border-radius);
+  background: rgba(var(--card-rgb), 1);
+  border: 1px solid rgba(var(--card-rgb), 1);
+  transition: background 200ms, border 200ms;
+}
+
+.link-card:hover {
+  background: rgba(var(--light-card-rgb), 1);
+  border: 1px solid rgba(var(--card-border-rgb), 0.15);
+}
+
+.link-card:hover span {
+  transform: translateX(4px);
+}
+
+/* Container Styles */
+.container {
+  display: flex;
+  margin: 16px; /* Add space around the container */
+  justify-content: flex-end; /* Spread elements apart horizontally */
+}
+
+/* List Styles */
+.response-list {
+  list-style-type: none;
+  text-align: center;
+  padding: 0;
+  background-color: #ffffff; /* Background color for the list */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 80%; /* Adjust the width as needed */
+  max-width: 400px; /* Maximum width for the list */
+  max-height: 700px; /* Set a maximum height */
+  overflow-y: auto; /* Make it scrollable */
+}
+
+.response-list li {
+  display: flex;
+  justify-content: space-between; /* Align items to opposite ends */
+  align-items: center;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ccc; /* Optional: for better separation */
+  margin-bottom: 0; /* Remove margin-bottom */
+}
+
+.response-list li strong {
+  margin-right: auto; /* Ensures the name is aligned to the left */
+}
+
+/* Style the list items for better readability, e.g., alternating background colors */
+.response-list li:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+/* Narrow Screen Styles */
+@media screen and (max-width: 768px) {
+  .header,
+  .title-header {
+    flex-direction: column; /* Stack header elements vertically */
+    align-items: center; /* Center header items vertically and horizontally */
   }
+
+  .header h1,
+  .title-header h1 {
+    font-size: 1.2rem; /* Adjust the font size for smaller screens */
+    margin-bottom: 20px;
+  }
+}
+
 
   
 /* Message Styles */

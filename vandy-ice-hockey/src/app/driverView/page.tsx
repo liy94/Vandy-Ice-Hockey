@@ -106,8 +106,14 @@ const App: React.FC = () => {
     <div className="app">
       <div className="header">
         <Image src={logo} alt="Logo" className="logo" />
-        <h1>Vandy Ice Hockey Carpool</h1>
+        <div className="title-container">
+
+        <h1>Vandy Ice Hockey</h1>
+        <h1>Carpool</h1>
+        </div>
+
         <div className="links">
+          <div className="link-card-grid">
           <Link
             href="/loadingPage"
             className="link-card" // Use the new class
@@ -141,6 +147,7 @@ const App: React.FC = () => {
           >
             Sign Out
           </button>
+          </div>
         </div>
       </div>
       <div className="container">

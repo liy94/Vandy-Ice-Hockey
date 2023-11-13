@@ -1,35 +1,49 @@
-/* styles.css */
-
-
 /* Header Styles */
 .header {
   background-color: #333;
   padding: 1rem;
   display: flex;
-  align-items: center;
-  margin: 0 auto;
-  justify-content: space-between;
+  flex-direction: row; /* Stack header elements horizontally */
+  align-items: center; /* Center header items vertically */
+  justify-content: space-between; /* Spread elements apart horizontally */
   text-align: center;
-  width: 100%; /* Add this to ensure full width */
-}
-
-/* Add a CSS class for the logo */
-.logo {
-  /* Position the logo in the left corner */
-  margin-right: auto;
-  width: 100px; /* Adjust the width as needed */
-  height: auto; /* Maintain aspect ratio */
+  width: 100%;
 }
 
 .header h1 {
   color: #cfae73;
   font-size: 1.5rem;
+  text-align: center;
   margin: 0;
-  flex-grow: 1; /* Allow the h1 to take available space and center-align it */
+}
+
+/* Header Styles */
+.title-header {
+  background-color: #cfae73;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column; /* Stack header elements vertically */
+  align-items: center; /* Center header items horizontally */
+  justify-content: center; /* Center elements vertically */
+  text-align: center;
+  width: 100%;
+}
+
+.title-header h1 {
+  color: #cfae73;
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 0;
+}
+
+/* Add a CSS class for the logo */
+.logo {
+  width: 150px;
+  height: auto;
 }
 
 .card {
-  margin: 6px; /* Add space around the link-card */
+  margin-left: 6px; /* Add space around the link-card */
   padding: 10px;
   cursor: pointer;
   font-size: smaller; /* Adjust the font size to match the card elements */
@@ -48,28 +62,32 @@
   transform: translateX(4px);
 }
 
-/* Container Styles */
-.container {
-  display: flex;
-  margin: 16px; /* Add space around the container */
-  justify-content: space-between; /* Spread elements apart horizontally */
+/* 2x2 Grid Styles */
+.link-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto); /* Change to 'auto' for narrower buttons */
+  grid-template-rows: repeat(2, auto);
+  gap: 5px; /* Reduce the margin between buttons */
+  margin-top: 10px; /* Adjust the margin as needed */
 }
 
-/* Left Half Styles */
-.left-half {
-  flex: 1;
-  padding: 1rem;
-  background-color: #f0f0f0;
+.link-card {
+  margin: 6px; /* Add space around the link-card */
+  padding: 8px; /* Reduce padding for narrower buttons */
+  cursor: pointer;
+  font-size: smaller; /* Adjust the font size to match the card elements */
+  border-radius: var(--border-radius);
+  background: rgba(var(--card-rgb), 1);
+  border: 1px solid rgba(var(--card-rgb), 1);
+  transition: background 200ms, border 200ms;
 }
 
-
-
-.card:hover {
+.link-card:hover {
   background: rgba(var(--light-card-rgb), 1);
   border: 1px solid rgba(var(--card-border-rgb), 0.15);
 }
 
-.card:hover span {
+.link-card:hover span {
   transform: translateX(4px);
 }
 
@@ -101,16 +119,20 @@
   flex: 1;
   padding: 1rem;
   background-color: #ffffff;
+  display: flex;
+  flex-direction: row; /* Stack buttons horizontally */
+  justify-content: flex-end; /* Align buttons to the right */
+  align-items: center; /* Center buttons vertically */
 }
 
 .right-half .links {
   display: flex;
-  flex-direction: column; /* Stack buttons vertically */
-  align-items: center; /* Center buttons horizontally */
+  flex-direction: row; /* Stack buttons horizontally */
+  align-items: center; /* Center buttons vertically */
 }
 
 .right-half .links a {
-  margin-bottom: 10px; /* Add space between the buttons */
+  margin-left: 10px; /* Add space between the buttons */
 }
 
 /* Google Maps Container Styles */
@@ -123,7 +145,7 @@
 @media screen and (max-width: 768px) {
   .header {
     flex-direction: column; /* Stack header elements vertically */
-    align-items: flex-start; /* Align header items to the left */
+    align-items: center; /* Center header items vertically and horizontally */
   }
 
   .header h1 {
@@ -156,9 +178,11 @@
     align-items: center; /* Center link cards horizontally within the right container */
   }
 
-  .right-half card {
+  .right-half .card {
     width: 100%; /* Make link card elements take full width within the right container */
     text-align: center; /* Center text on smaller screens */
     font-size: 1rem; /* Adjust font size for link cards */
+    margin-left: 0; /* Remove margin for smaller screens */
   }
 }
+
