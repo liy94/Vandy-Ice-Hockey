@@ -177,7 +177,7 @@ const App: React.FC = () => {
             {/* link to google maps website with the correct location inputted  */}
             <a
               href={`https://www.google.com/maps?q=${encodeURIComponent(
-                location + " Nashville, TN"
+                location + " Vanderbilt Nashville, TN"
               )}`}
               target="_blank"
             >
