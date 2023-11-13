@@ -83,7 +83,6 @@ const App: React.FC = () => {
   //TODO change to const once test entries in database reset
   let location = userInfo.location;
   let mapSearchText = "Vanderbilt Nashville TN";
-  
 
   // Define the selected image based on the location
 let selectedImage;
@@ -117,68 +116,73 @@ if (location === "Kissam") {
       <div className="header">
         <Image src={logo} alt="Logo" className="logo" />
         <div className="title-container">
-
-        <h1>Vandy Ice Hockey</h1>
-        <h1>Carpool</h1>
+          <h1>Vandy Ice Hockey</h1>
+          <h1>Carpool</h1>
         </div>
 
         <div className="links">
           <div className="link-card-grid">
-          <Link
-            href="/loadingPage"
-            className="link-card" // Use the new class
-            target="_self"
-            rel="noopener noreferrer"
-          >
-            Home
-          </Link>
+            <Link
+              href="/loadingPage"
+              className="link-card" // Use the new class
+              target="_self"
+              rel="noopener noreferrer"
+            >
+              Home
+            </Link>
 
-          <Link
-            href="/responsesView"
-            className="link-card" // Use the new class
-            target="_self"
-            rel="noopener noreferrer"
-          >
-            All Responses
-          </Link>
+            <Link
+              href="/responsesView"
+              className="link-card" // Use the new class
+              target="_self"
+              rel="noopener noreferrer"
+            >
+              All Responses
+            </Link>
 
-          <Link
-            href="/registrationForm"
-            className="link-card" // Use the new class
-            target="_self"
-            rel="noopener noreferrer"
-          >
-            Update Profile
-          </Link>
+            <Link
+              href="/registrationForm"
+              className="link-card" // Use the new class
+              target="_self"
+              rel="noopener noreferrer"
+            >
+              Update Profile
+            </Link>
 
-          <button
-            onClick={() => signOut({ callbackUrl: "/" })}
-            className="link-card"
-          >
-            Sign Out
-          </button>
+            <button
+              onClick={() => signOut({ callbackUrl: "/" })}
+              className="link-card"
+            >
+              Sign Out
+            </button>
           </div>
         </div>
       </div>
       <div className="container">
         <div className="left-half">
           {/* User information content */}
-          <h2>
-            {" "}
-            Here is a list of you will be picking up tonight at {location}
-          </h2>
-          <ul>
-            {users.map((user, index) => (
-              <li key={index}>
-                <strong>Name:</strong> {user.name}
-                <br />
-                <strong>Phone:</strong> {user.phone}
-                <br />
-                <strong>Email:</strong> {user.email}
-                <br />
-              </li>
-            ))}
-          </ul>
+          {riderEmails.length !== 0 ? (
+            <div>
+              <h2>
+                {" "}
+                Here is a list of you will be picking up tonight at {location}
+              </h2>
+              <ul>
+                {users.map((user, index) => (
+                  <li key={index}>
+                    <strong>Name:</strong> {user.name}
+                    <br />
+                    <strong>Phone:</strong> {user.phone}
+                    <br />
+                    <strong>Email:</strong> {user.email}
+                    <br />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <h2>You don't need to pick anyone up this week.</h2>
+          )}
         </div>
         <div className="right-half">
           {/* Google Maps API */}
