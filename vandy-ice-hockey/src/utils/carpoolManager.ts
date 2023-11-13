@@ -1,10 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
 import {
   fetchAllUsersWithStatus,
   resetUsers,
   changeDriver,
-  addRider,
+  addRiderToUser,
 } from "./apiUtils";
 import { User } from "@/types/User";
 
@@ -63,7 +62,7 @@ export default function runAlgorithm() {
 
       pairs.forEach((pair) => {
         changeDriver(pair[1].id, pair[0].id);
-        addRider(pair[0].id, pair[1].id);
+        addRiderToUser(pair[0].id, pair[1].id);
       });
     }
   };
