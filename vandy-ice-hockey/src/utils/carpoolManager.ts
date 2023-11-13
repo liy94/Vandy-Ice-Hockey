@@ -59,6 +59,7 @@ export default function runAlgorithm() {
       });
 
       const pairs = pairDriversAndRiders(riders, drivers);
+      console.log(pairs);
 
       pairs.forEach((pair) => {
         changeDriver(pair[1].id, pair[0].id);
