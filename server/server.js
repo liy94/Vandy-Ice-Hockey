@@ -84,6 +84,32 @@ app.put('/users/email/:email', async (req, res) => {
     }
 });
 
+// to atomically write a new rider to a driver's rider array
+app.put('/users/email/:email/addRider', async (req, res) => {
+    try {
+        const userEmail = req.params.email;
+        const newRiderEmail = req.body.newRiderEmail;
+
+        if (!userEmail || !/^\S+@\S+\.\S+$/.test(userEmail)) {
+            return res.status(400).send('Invalid email address');
+        }
+        if (!newRiderEmail || !/^\S+@\S+\.\S+$/.test(newRiderEmail)) {
+            return res.status(400).send('Invalid email address');
+        }
+
+        const updateResult = await collection.findOneAndUpdate(
+            { email: userEmail },
+            { $push: { riders: newRiderEmail } },
+            { returnDocument: 'after' } // Optional
+        );
+        res.status(200).json({ message: "Rider added successfully", data: updateResult.value });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
 
 
 // GET /users/email/:email
@@ -116,6 +142,18 @@ app.get('/users/email/:email', async (req, res) => {
 });
 
 
+// reset all users' driver and rider fields to an empty string for driver and empty array for riders
+app.put('/reset/users', async (req, res) => {
+    try {
+        const updatedUser = await collection.updateMany({}, { $set: { driver: "", riders: [] } });
+        if (!updatedUser) return res.status(404).send('User not found');
+        res.status(200).json({ message: "Document updated successfully", data: updatedUser });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 // GET /users
 // This endpoint retrieves data about all users from the Users collection.
 // Response:
@@ -130,6 +168,7 @@ app.get('/users', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
 
 // POST /users
 // This endpoint creates a new user in the Users collection.
@@ -148,6 +187,26 @@ app.post('/users', async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
+// DELETE /users/emails/:email
+// This endpoint deletes a user from the Users collection by email
+app.delete('/users/emails/:email', async (req, res) => {
+    try {
+        const userEmail = req.params.email;
+        // Validate the email address
+        // You can use a more robust validation method as required for your use case
+        if (!userEmail || !/^\S+@\S+\.\S+$/.test(userEmail)) {
+            return res.status(400).send('Invalid email address');
+        }
+        const deletedUser = await collection.deleteOne({ email: userEmail });
+        if (!deletedUser) return res.status(404).send('User not found');
+        res.status(200).json({ message: "Document deleted successfully", data: deletedUser });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
