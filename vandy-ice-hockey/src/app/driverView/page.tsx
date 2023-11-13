@@ -82,20 +82,27 @@ const App: React.FC = () => {
 
   //TODO change to const once test entries in database reset
   let location = userInfo.location;
+  let mapSearchText = "Vanderbilt Nashville TN";
+  
 
   // Define the selected image based on the location
-  let selectedImage;
-  if (location === "Kissam") {
-    selectedImage = images.kissam;
-  } else if (location === "Commons") {
-    selectedImage = images.commons;
-  } else if (location == "EBI") {
-    selectedImage = images.ebi;
-  } else if (location == "Highland") {
-    selectedImage = images.highland;
-  } else if (location == "Zeppos") {
-    selectedImage = images.zeppos;
-  }
+let selectedImage;
+if (location === "Kissam") {
+  selectedImage = images.kissam;
+  mapSearchText = "Kissam Vanderbilt Nashville TN";
+} else if (location === "Commons") {
+  selectedImage = images.commons;
+  mapSearchText = "Commons Vanderbilt Nashville TN";
+} else if (location === "EBI") {
+  selectedImage = images.ebi;
+  mapSearchText = "E. Bronson Ingram College Vanderbilt Nashville TN";
+} else if (location === "Highland") {
+  selectedImage = images.highland;
+  mapSearchText = "Highland Vanderbilt Nashville TN";
+} else if (location === "Zeppos") {
+  selectedImage = images.zeppos;
+  mapSearchText = "Zeppos Vanderbilt Nashville TN";
+}
   //TODO delete this case once test entries in database reset, fixed issue with no default value for location
   else if (location === "") {
     selectedImage = images.commons;
@@ -177,7 +184,7 @@ const App: React.FC = () => {
             {/* link to google maps website with the correct location inputted  */}
             <a
               href={`https://www.google.com/maps?q=${encodeURIComponent(
-                location + " Vanderbilt Nashville, TN"
+                mapSearchText
               )}`}
               target="_blank"
             >
