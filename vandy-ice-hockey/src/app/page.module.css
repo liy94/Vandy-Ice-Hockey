@@ -8,6 +8,26 @@
   
 }
 
+
+/* Common styles for centering and styling */
+.centeredContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.centeredContainer h2 {
+  font-size: 2rem; /* Adjust the font size for larger text */
+  margin: 0; /* Remove default margin for h2 */
+}
+
+.centeredContainer .submitButton {
+  font-size: 1.5rem; /* Adjust the font size for larger text */
+  margin: 20px auto; /* Adjust the margin as needed */
+}
  
 /* Header Styles */
 .header, .titleHeader {

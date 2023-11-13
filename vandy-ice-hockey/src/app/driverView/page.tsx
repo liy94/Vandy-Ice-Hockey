@@ -97,7 +97,7 @@ const App: React.FC = () => {
     mapSearchText = "E. Bronson Ingram College Vanderbilt Nashville TN";
   } else if (location === "Highland") {
     selectedImage = images.highland;
-    mapSearchText = "Highland Vanderbilt Nashville TN";
+    mapSearchText = "Morgan House Vanderbilt Nashville TN";
   } else if (location === "Zeppos") {
     selectedImage = images.zeppos;
     mapSearchText = "Zeppos Vanderbilt Nashville TN";
