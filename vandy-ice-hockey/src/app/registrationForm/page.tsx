@@ -49,14 +49,19 @@ export default function RegistrationForm() {
   }
 
   return (
-    <main>
+    <main className={styles.main}>
       <div className={styles.header}>
         <Image src={vandyLogo} alt="Logo" className={styles.vandyLogo} />
-        <h1>Vandy Ice Hockey Carpool</h1>
-        <div className="links">
+        <div className={styles.titleHeader}>
+        <h1>Vandy Ice Hockey</h1>
+        <h1>Carpool</h1>
+
+        </div>
+        <div className={styles.links}>
+              <div className={styles.linkCardGrid}>
           <Link
             href="/loadingPage"
-            className="link-card" // Use the new class
+            className={styles.linkCard} // Use the new class
             target="_self"
             rel="noopener noreferrer"
           >
@@ -65,8 +70,8 @@ export default function RegistrationForm() {
 
           <Link
             href="/responsesView"
-            className="link-card" // Use the new class
-            target="_self"
+            className={styles.linkCard} // Use the new class
+           target="_self"
             rel="noopener noreferrer"
           >
             All Responses
@@ -74,7 +79,7 @@ export default function RegistrationForm() {
 
           <Link
             href="/registrationForm"
-            className="link-card" // Use the new class
+            className={styles.linkCard} // Use the new class
             target="_self"
             rel="noopener noreferrer"
           >
@@ -83,10 +88,11 @@ export default function RegistrationForm() {
 
           <button
             onClick={() => signOut({ callbackUrl: "/" })}
-            className="link-card"
+            className={styles.linkCard} // Use the new class
           >
             Sign Out
           </button>
+        </div>
         </div>
       </div>
 
