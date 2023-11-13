@@ -1,19 +1,20 @@
 import { checkIfUserExists } from "../src/utils/loadingPage";
+
 test("loadingPage util", async () => {
-  const email = "unittesting@vanderbilt.edu";
+  const email = "unittesting3@vanderbilt.edu";
   const errorEmail = "";
 
   const userExists = await checkIfUserExists(email);
   expect(userExists).toEqual({
-    _id: "65515c974b5f248c3c91973b",
+    _id: "655262db6b18315ba36c235c",
     attendance: "No",
     driver: "",
-    email: "unittesting@vanderbilt.edu",
-    hasCar: "No",
-    location: "Highland",
-    name: "test2",
-    numberOfSeats: 1,
-    phone: "54321",
+    email: "unittesting3@vanderbilt.edu",
+    hasCar: "Yes",
+    location: "Kissam",
+    name: "test3",
+    numberOfSeats: 4,
+    phone: "7890",
     riders: [],
   });
 
