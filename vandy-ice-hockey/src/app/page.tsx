@@ -18,8 +18,8 @@ export default function Login() {
   // If the user is not logged in, show the sign in button
   if (!session) {
     return (
-      <main className={styles.main}>
-        <div className={styles.title}>
+      <main className={styles.centeredContainer}>
+        <div className={styles.mainTitle}>
           <h2>Vanderbilt Ice Hockey Carpool</h2>
         </div>
         <button className={styles.submitButton} onClick={() => signIn('google')}>
