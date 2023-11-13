@@ -102,6 +102,9 @@ if (location === "Kissam") {
 } else if (location === "Zeppos") {
   selectedImage = images.zeppos;
   mapSearchText = "Zeppos Vanderbilt Nashville TN";
+}else if (location == "Roth"){
+  selectedImage = images.roth;
+  mapSearchText = "Roth Dinig hall Vanderbilt Nashville TN";
 }
   //TODO delete this case once test entries in database reset, fixed issue with no default value for location
   else if (location === "") {
