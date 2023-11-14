@@ -5,6 +5,7 @@ const kissam = "/kissam.png";
 const zeppos = "/zeppos.png";
 const highland = "/highland.png";
 const commons = "/commons.png";
+const roth = '/roth.png'
 
 const images = {
   ebi,
@@ -12,6 +13,7 @@ const images = {
   zeppos,
   highland,
   commons,
+  roth,
   // commons: commons, // Import and add more images as needed
 };
 

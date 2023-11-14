@@ -1,4 +1,4 @@
-import {
+import runAlgorithm, {
   Passenger,
   Driver,
   pairDriversAndRiders,
@@ -196,5 +196,9 @@ describe("pairing algorithm", () => {
     expect(pairs[8]).toEqual(testPairs[8]);
     expect(pairs[9]).toEqual(testPairs[9]);
     expect(pairs[10]).toEqual(testPairs[10]);
+  });
+
+  test("algorithm runs with no fetch errors", () => {
+    runAlgorithm();
   });
 });

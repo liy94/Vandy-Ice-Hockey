@@ -12,6 +12,7 @@ import vandyLogo from "../img/logo.png";
 import Image from "next/image";
 import { createOrUpdateUser } from "../../utils/registrationFormUtils";
 import { signOut } from "next-auth/react";
+import runAlgorithm from "@/utils/carpoolManager";
 
 interface preloadedUser {
   preloaded: User;
@@ -48,14 +49,19 @@ export default function RegistrationForm() {
   }
 
   return (
-    <main>
+    <main className={styles.main}>
       <div className={styles.header}>
         <Image src={vandyLogo} alt="Logo" className={styles.vandyLogo} />
-        <h1>Vandy Ice Hockey Carpool</h1>
-        <div className="links">
+        <div className={styles.titleHeader}>
+        <h1>Vandy Ice Hockey</h1>
+        <h1>Carpool</h1>
+
+        </div>
+        <div className={styles.links}>
+              <div className={styles.linkCardGrid}>
           <Link
             href="/loadingPage"
-            className="link-card" // Use the new class
+            className={styles.linkCard} // Use the new class
             target="_self"
             rel="noopener noreferrer"
           >
@@ -64,8 +70,8 @@ export default function RegistrationForm() {
 
           <Link
             href="/responsesView"
-            className="link-card" // Use the new class
-            target="_self"
+            className={styles.linkCard} // Use the new class
+           target="_self"
             rel="noopener noreferrer"
           >
             All Responses
@@ -73,7 +79,7 @@ export default function RegistrationForm() {
 
           <Link
             href="/registrationForm"
-            className="link-card" // Use the new class
+            className={styles.linkCard} // Use the new class
             target="_self"
             rel="noopener noreferrer"
           >
@@ -82,14 +88,15 @@ export default function RegistrationForm() {
 
           <button
             onClick={() => signOut({ callbackUrl: "/" })}
-            className="link-card"
+            className={styles.linkCard} // Use the new class
           >
             Sign Out
           </button>
         </div>
+        </div>
       </div>
 
-      <h1>Registration</h1>
+      <h1>Profile</h1>
       <Form preloaded={userInfo} />
     </main>
   );
@@ -116,7 +123,7 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
     setLocation(preloaded.location);
   }, [preloaded]);
 
-  const submitHandler = (e: any) => {
+  const submitHandler = async (e: any) => {
     const newUser: User = {
       name: name,
       email: email,
@@ -129,19 +136,12 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
       riders: [],
     };
     e.preventDefault();
-    createOrUpdateUser(newUser);
+    runAlgorithm();
+    await createOrUpdateUser(newUser);
     console.log("form submitted");
-    console.log(location);
 
     // Redirect user to appropriate page depending on if they are a driver or rider or not going .
-    if (attendance == "No") {
-      router.push("/notComing");
-      console.log("attendance is no");
-    } else if (car === "Yes") {
-      router.push("/driverView");
-    } else {
-      router.push("/riderView");
-    }
+    router.push("/loadingPage");
   };
 
   const getComingWednesday = () => {
@@ -182,7 +182,9 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
         onChange={(e) => setPhone(e.target.value)}
       ></input>
 
-      <label className={styles.formLabel}>Attending practice on {nextPracticeDate}?</label>
+      <label className={styles.formLabel}>
+        Attending practice on {nextPracticeDate}?
+      </label>
       <div className={styles.formLabel}>
         <input
           type="radio"
