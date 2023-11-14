@@ -53,46 +53,45 @@ export default function RegistrationForm() {
       <div className={styles.header}>
         <Image src={vandyLogo} alt="Logo" className={styles.vandyLogo} />
         <div className={styles.titleHeader}>
-        <h1>Vandy Ice Hockey</h1>
-        <h1>Carpool</h1>
-
+          <h1>Vandy Ice Hockey</h1>
+          <h1>Carpool</h1>
         </div>
         <div className={styles.links}>
-              <div className={styles.linkCardGrid}>
-          <Link
-            href="/loadingPage"
-            className={styles.linkCard} // Use the new class
-            target="_self"
-            rel="noopener noreferrer"
-          >
-            Home
-          </Link>
+          <div className={styles.linkCardGrid}>
+            <Link
+              href="/loadingPage"
+              className={styles.linkCard} // Use the new class
+              target="_self"
+              rel="noopener noreferrer"
+            >
+              Home
+            </Link>
 
-          <Link
-            href="/responsesView"
-            className={styles.linkCard} // Use the new class
-           target="_self"
-            rel="noopener noreferrer"
-          >
-            All Responses
-          </Link>
+            <Link
+              href="/responsesView"
+              className={styles.linkCard} // Use the new class
+              target="_self"
+              rel="noopener noreferrer"
+            >
+              All Responses
+            </Link>
 
-          <Link
-            href="/registrationForm"
-            className={styles.linkCard} // Use the new class
-            target="_self"
-            rel="noopener noreferrer"
-          >
-            Update Profile
-          </Link>
+            <Link
+              href="/registrationForm"
+              className={styles.linkCard} // Use the new class
+              target="_self"
+              rel="noopener noreferrer"
+            >
+              Update Profile
+            </Link>
 
-          <button
-            onClick={() => signOut({ callbackUrl: "/" })}
-            className={styles.linkCard} // Use the new class
-          >
-            Sign Out
-          </button>
-        </div>
+            <button
+              onClick={() => signOut({ callbackUrl: "/" })}
+              className={styles.linkCard} // Use the new class
+            >
+              Sign Out
+            </button>
+          </div>
         </div>
       </div>
 
@@ -114,13 +113,15 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
   const [location, setLocation] = useState("Commons");
 
   useEffect(() => {
-    setName(preloaded.name);
-    setEmail(preloaded.email);
-    setPhone(preloaded.phone);
-    setAttendance(preloaded.attendance);
-    setCar(preloaded.hasCar);
-    setSeats(preloaded.numberOfSeats);
-    setLocation(preloaded.location);
+    if (preloaded) {
+      setName(preloaded.name);
+      setEmail(preloaded.email);
+      setPhone(preloaded.phone);
+      setAttendance(preloaded.attendance);
+      setCar(preloaded.hasCar);
+      setSeats(preloaded.hasCar === "Yes" ? preloaded.numberOfSeats : 0);
+      setLocation(preloaded.location);
+    }
   }, [preloaded]);
 
   const submitHandler = async (e: any) => {
@@ -235,7 +236,7 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
             </select>
           </label>
 
-          <label className={styles.formLabel}>Do you have a car?</label>
+          <label className={styles.formLabel}>Are you driving this week?</label>
           <div className={styles.formLabel}>
             <input
               type="radio"
@@ -256,13 +257,16 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
               value="No"
               id="no"
               checked={car === "No"}
-              onChange={(e) => setCar(e.target.value)}
+              onChange={(e) => {
+                setCar("No");
+                setSeats(0); // Reset seats to 0 when user selects 'No' for driving
+              }}
             />
             <label className={styles.radioLabel} htmlFor="no">
               No
             </label>
           </div>
-          {/* Only ask how many seats their car has if they selected that they are a driver */}
+
           {car === "Yes" ? (
             <div>
               <label className={styles.formLabel}>
@@ -273,7 +277,15 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
                 type="number"
                 required
                 value={seats}
-                onChange={(e) => setSeats(e.target.valueAsNumber)}
+                min="0"
+                max="5"
+                onChange={(e) => {
+                  const seatCount = Math.max(
+                    0,
+                    Math.min(5, e.target.valueAsNumber)
+                  );
+                  setSeats(seatCount);
+                }}
               />
             </div>
           ) : null}
