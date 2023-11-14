@@ -1,6 +1,7 @@
 import { User } from "../types/User";
 // server url
-const serverUrl = "http://localhost:3001";
+const serverUrl = 'https://dzgwriting.xyz';
+
 
 // Gets a user by id
 // Returns a promise that resolves to a user object

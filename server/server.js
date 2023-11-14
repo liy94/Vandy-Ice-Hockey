@@ -2,15 +2,26 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const { ObjectId } = require('mongodb');
-const uri = "mongodb+srv://PrinciplesSWE:VandyIceHockey@danielblog.te9b5na.mongodb.net/?retryWrites=true&w=majority";
+const http = require('http');
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
 const cors = require('cors');
+
+
+const uri = "mongodb+srv://PrinciplesSWE:VandyIceHockey@danielblog.te9b5na.mongodb.net/?retryWrites=true&w=majority";
 const app = express();
-const PORT = 3001;
+const PORT = 443;
 app.use(cors());
 app.use(bodyParser.json());
 
 let client;
 let collection;
+
+const sslOptions = {
+    key: fs.readFileSync('/etc/letsencrypt/live/dzgwriting.xyz/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/dzgwriting.xyz/fullchain.pem')
+};
 
 MongoClient.connect(uri)
     .then(_client => {
@@ -207,9 +218,10 @@ app.delete('/users/emails/:email', async (req, res) => {
     }
 });
 
+const httpsServer = https.createServer(sslOptions, app);
 
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+httpsServer.listen(PORT, () => {
+  console.log(`HTTPS Server running on port ${PORT}`);
 });
 
 process.on('SIGINT', () => {
