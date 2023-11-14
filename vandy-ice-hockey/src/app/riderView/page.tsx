@@ -73,7 +73,7 @@ if (location === "Kissam") {
   mapSearchText = "Kissam Vanderbilt Nashville TN";
 } else if (location === "Commons") {
   selectedImage = images.commons;
-  mapSearchText = "Commons Vanderbilt Nashville TN";
+  mapSearchText = "Hank Ingram House Vanderbilt Nashville TN";
 } else if (location === "EBI") {
   selectedImage = images.ebi;
   mapSearchText = "E. Bronson Ingram College Vanderbilt Nashville TN";

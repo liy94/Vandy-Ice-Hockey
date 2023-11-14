@@ -226,7 +226,7 @@ const Form: React.FC<preloadedUser> = ({ preloaded }) => {
               value={location}
               onChange={(e) => setLocation(e.target.value)}
             >
-              {["Commons", "EBI", "Highland", "Kissam", "Roth", "Zeppos"].map(
+              {["Commons", "EBI", "Highland", "Kissam", "Zeppos"].map(
                 (option) => (
                   <option key={option} value={option}>
                     {option}
