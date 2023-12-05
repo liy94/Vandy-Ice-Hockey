@@ -165,7 +165,7 @@ if (location === "Kissam") {
             <div>
               <h2>
                 {" "}
-                Here is a list of you will be picking up tonight at {location}
+                Here is a list of who you will be picking up tonight at {location}
               </h2>
               <ul>
                 {users.map((user, index) => (
